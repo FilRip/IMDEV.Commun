@@ -8,6 +8,7 @@ namespace IMDEV.Database.Common
     {
         protected string _lastError;
         protected string _lastServeur = "";
+        protected int _lastNbAffected;
 
         abstract public bool connect(connectionProperties parameters);
         abstract public bool connect(string connectionString);
@@ -20,12 +21,18 @@ namespace IMDEV.Database.Common
         abstract public unRetourRequete retourneDonnees();
         abstract public void fermer();
         abstract public System.Data.ConnectionState state();
+
         // TODO : generateConnectionString
         //abstract public string generateConnectionString(params string[] values);
 
         public string lastError
         {
             get { return _lastError; }
+        }
+
+        public int lastNbAffected
+        {
+            get { return _lastNbAffected; }
         }
     }
 }

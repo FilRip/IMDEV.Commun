@@ -125,6 +125,10 @@ namespace IMDEV.Database
             _myConnection.fermer();
         }
 
+        public int nbAffectee
+        {
+            get { return _myConnection.lastNbAffected; }
+        }
         /// <summary>
         /// Lire le message d'erreur de la dernière erreur qui a pu se produire
         /// </summary>

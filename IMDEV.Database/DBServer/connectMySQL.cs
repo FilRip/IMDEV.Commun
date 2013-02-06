@@ -114,7 +114,7 @@ namespace IMDEV.Database.DBServer
                 sa.Connection = _conn;
                 sa.CommandText = requete;
                 sa.CommandType = CommandType.Text;
-                sa.ExecuteNonQuery();
+                _lastNbAffected=sa.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)
@@ -187,7 +187,7 @@ namespace IMDEV.Database.DBServer
             try
             {
                 _proc.Connection = _conn;
-                _proc.ExecuteNonQuery();
+                _lastNbAffected=_proc.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)
