@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("CB.Common")]
+[assembly: AssemblyTitle("IMDEV.Database")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CB")]
-[assembly: AssemblyProduct("CB.Common")]
-[assembly: AssemblyCopyright("Copyright © CB 2011")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("IMDEV.Database")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("b858f052-3d27-47b1-b2ad-72baa320ae62")]
+[assembly: Guid("97ac6f28-3f85-4e41-993d-64c7f39374c0")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //
