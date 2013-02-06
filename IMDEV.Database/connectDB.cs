@@ -114,6 +114,12 @@ namespace IMDEV.Database
             return _myConnection.state();
         }
 
+        public object executeScalaire(string requete)
+        {
+            if (checkCurrentServerType()) return null;
+            return _myConnection.executeScalaire(requete);
+        }
+
         public void fermer()
         {
             _myConnection.fermer();
