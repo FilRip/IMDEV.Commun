@@ -109,7 +109,7 @@ Public Class connectMySQL
 
     Public Function ajouteParametrePS(ByVal nom As String, ByVal valeur As Object) As Boolean
         Try
-            _proc.Parameters.Add(nom, valeur)
+            _proc.Parameters.AddWithValue(nom, valeur)
             Return True
         Catch ex As Exception
             _lastError = ex.Message
