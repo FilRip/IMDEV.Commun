@@ -128,6 +128,29 @@ namespace IMDEV.Database.DBServer
             return false;
         }
 
+        public override object executeScalaire(string requete)
+        {
+            MySqlCommand sa = new MySqlCommand();
+
+            verifConnexion();
+            try
+            {
+                sa.Connection = _conn;
+                sa.CommandText = requete;
+                sa.CommandType = CommandType.Text;
+                return sa.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            finally
+            {
+                sa = null;
+            }
+            return null;
+        }
+
         override public bool prepareProcedureStockee(string nom)
         {
             try

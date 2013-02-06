@@ -232,6 +232,29 @@ namespace IMDEV.Database.DBServer
                     catch {}
         }
 
+        public override object executeScalaire(string requete)
+        {
+            NpgsqlCommand sa = new NpgsqlCommand();
+
+            verifConnexion();
+            try
+            {
+                sa.Connection = _conn;
+                sa.CommandText = requete;
+                sa.CommandType = CommandType.Text;
+                return sa.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            finally
+            {
+                sa = null;
+            }
+            return null;
+        }
+
         public override ConnectionState state()
         {
             return _conn.State;

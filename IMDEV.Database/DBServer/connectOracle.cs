@@ -287,6 +287,29 @@ namespace IMDEV.Database.DBServer
             }
         }
 
+        public override object executeScalaire(string requete)
+        {
+            OracleCommand oc = new OracleCommand();
+
+            verifConnexion();
+            try
+            {
+                oc.Connection = _conn;
+                oc.CommandText = requete;
+                oc.CommandType = CommandType.Text;
+                return oc.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            finally
+            {
+                oc = null;
+            }
+            return null;
+        }
+
         public override ConnectionState state()
         {
             return _conn.State;

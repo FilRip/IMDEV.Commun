@@ -13,6 +13,7 @@ namespace IMDEV.Database.Common
         abstract public bool connect(string connectionString);
         abstract public unRetourRequete retourneDonnees(string requete);
         abstract public bool executeRequete(string requete);
+        abstract public object executeScalaire(string requete);
         abstract public bool prepareProcedureStockee(string nom);
         abstract public bool ajouteParametrePS(string nom, object valeur);
         abstract public bool executeProcedureStockee();
