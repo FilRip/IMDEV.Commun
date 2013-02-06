@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IMDEV.PackUnpack</RootNamespace>
     <AssemblyName>IMDEV.PackUnpack</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
@@ -20,9 +20,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -53,94 +57,6 @@
     <Compile Include="lzma\RangeCoder\RangeCoder.cs" />
     <Compile Include="lzma\RangeCoder\RangeCoderBit.cs" />
     <Compile Include="lzma\RangeCoder\RangeCoderBitTree.cs" />
-    <Compile Include="nunrar\Archive\FileInfoRarArchiveVolume.cs" />
-    <Compile Include="nunrar\Archive\FileInfoRarFilePart.cs" />
-    <Compile Include="nunrar\Archive\RarArchive.cs" />
-    <Compile Include="nunrar\Archive\RarArchive.Extensions.cs" />
-    <Compile Include="nunrar\Archive\RarArchiveEntry.cs" />
-    <Compile Include="nunrar\Archive\RarArchiveEntry.Extensions.cs" />
-    <Compile Include="nunrar\Archive\RarArchiveVolume.cs" />
-    <Compile Include="nunrar\Archive\RarArchiveVolumeFactory.cs" />
-    <Compile Include="nunrar\Archive\SeekableStreamFilePart.cs" />
-    <Compile Include="nunrar\Archive\StreamRarArchiveVolume.cs" />
-    <Compile Include="nunrar\Common\ExtractOptions.cs" />
-    <Compile Include="nunrar\Common\IRarExtractionListener.cs" />
-    <Compile Include="nunrar\Common\RarEntry.cs" />
-    <Compile Include="nunrar\Common\RarFilePart.cs" />
-    <Compile Include="nunrar\Common\RarOptions.cs" />
-    <Compile Include="nunrar\Common\RarVolume.cs" />
-    <Compile Include="nunrar\ConsoleRarExtractionListener.cs" />
-    <Compile Include="nunrar\Exceptions\InvalidRarFormatException.cs" />
-    <Compile Include="nunrar\Exceptions\MultipartStreamRequiredException.cs" />
-    <Compile Include="nunrar\Exceptions\RarException.cs" />
-    <Compile Include="nunrar\Exceptions\RarExtractionException.cs" />
-    <Compile Include="nunrar\Headers\ArchiveHeader.cs" />
-    <Compile Include="nunrar\Headers\AVHeader.cs" />
-    <Compile Include="nunrar\Headers\CommentHeader.cs" />
-    <Compile Include="nunrar\Headers\EndArchiveHeader.cs" />
-    <Compile Include="nunrar\Headers\FileHeader.cs" />
-    <Compile Include="nunrar\Headers\FileNameDecoder.cs" />
-    <Compile Include="nunrar\Headers\Flags.cs" />
-    <Compile Include="nunrar\Headers\FlagUtility.cs" />
-    <Compile Include="nunrar\Headers\MarkHeader.cs" />
-    <Compile Include="nunrar\Headers\NewSubHeader.cs" />
-    <Compile Include="nunrar\Headers\RarHeader.cs" />
-    <Compile Include="nunrar\Headers\RarHeaderFactory.cs" />
-    <Compile Include="nunrar\Headers\SignHeader.cs" />
-    <Compile Include="nunrar\IO\MarkingBinaryReader.cs" />
-    <Compile Include="nunrar\IO\MultiVolumeStream.cs" />
-    <Compile Include="nunrar\IO\ReadOnlySubStream.cs" />
-    <Compile Include="nunrar\IO\StreamingMode.cs" />
-    <Compile Include="nunrar\LazyReadOnlyCollection.cs" />
-    <Compile Include="nunrar\NullRarExtractionListener.cs" />
-    <Compile Include="nunrar\Reader\MultiVolumeRarReader.cs" />
-    <Compile Include="nunrar\Reader\NonSeekableStreamFilePart.cs" />
-    <Compile Include="nunrar\Reader\RarReader.cs" />
-    <Compile Include="nunrar\Reader\RarReader.Extensions.cs" />
-    <Compile Include="nunrar\Reader\RarReaderEntry.cs" />
-    <Compile Include="nunrar\Reader\RarReaderVolume.cs" />
-    <Compile Include="nunrar\Reader\SingleVolumeRarReader.cs" />
-    <Compile Include="nunrar\Unpack\Decode\AudioVariables.cs" />
-    <Compile Include="nunrar\Unpack\Decode\BitDecode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\CodeType.cs" />
-    <Compile Include="nunrar\Unpack\Decode\Compress.cs" />
-    <Compile Include="nunrar\Unpack\Decode\Decode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\DistDecode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\FilterType.cs" />
-    <Compile Include="nunrar\Unpack\Decode\LitDecode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\LowDistDecode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\MultDecode.cs" />
-    <Compile Include="nunrar\Unpack\Decode\RepDecode.cs" />
-    <Compile Include="nunrar\Unpack\PPM\BlockTypes.cs" />
-    <Compile Include="nunrar\Unpack\PPM\FreqData.cs" />
-    <Compile Include="nunrar\Unpack\PPM\ModelPPM.cs" />
-    <Compile Include="nunrar\Unpack\PPM\Pointer.cs" />
-    <Compile Include="nunrar\Unpack\PPM\PPMContext.cs" />
-    <Compile Include="nunrar\Unpack\PPM\RangeCoder.cs" />
-    <Compile Include="nunrar\Unpack\PPM\RarMemBlock.cs" />
-    <Compile Include="nunrar\Unpack\PPM\RarNode.cs" />
-    <Compile Include="nunrar\Unpack\PPM\SEE2Context.cs" />
-    <Compile Include="nunrar\Unpack\PPM\State.cs" />
-    <Compile Include="nunrar\Unpack\PPM\StateRef.cs" />
-    <Compile Include="nunrar\Unpack\PPM\SubAllocator.cs" />
-    <Compile Include="nunrar\Unpack\RarCRC.cs" />
-    <Compile Include="nunrar\Unpack\Unpack.cs" />
-    <Compile Include="nunrar\Unpack\Unpack15.cs" />
-    <Compile Include="nunrar\Unpack\Unpack20.cs" />
-    <Compile Include="nunrar\Unpack\UnpackFilter.cs" />
-    <Compile Include="nunrar\Unpack\UnpackUtility.cs" />
-    <Compile Include="nunrar\Unpack\VM\BitInput.cs" />
-    <Compile Include="nunrar\Unpack\VM\RarVM.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMCmdFlags.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMCommands.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMFlags.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMOpType.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMPreparedCommand.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMPreparedOperand.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMPreparedProgram.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMStandardFilters.cs" />
-    <Compile Include="nunrar\Unpack\VM\VMStandardFilterSignature.cs" />
-    <Compile Include="nunrar\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpZipLib\BZip2\BZip2.cs" />
     <Compile Include="SharpZipLib\BZip2\BZip2Constants.cs" />
