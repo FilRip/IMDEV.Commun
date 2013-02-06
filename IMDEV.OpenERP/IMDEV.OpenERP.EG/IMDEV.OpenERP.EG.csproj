@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6FE853-95F5-4881-8500-66E24EB91076}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IMDEV.OpenERP.EG</RootNamespace>
+    <AssemblyName>IMDEV.OpenERP.EG</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="datatables\listAccountTax.cs" />
+    <Compile Include="datatables\listAllergens.cs" />
+    <Compile Include="datatables\listBom.cs" />
+    <Compile Include="datatables\listCountry.cs" />
+    <Compile Include="datatables\listIntraStatCode.cs" />
+    <Compile Include="datatables\listPartner.cs" />
+    <Compile Include="datatables\listProduct.cs" />
+    <Compile Include="datatables\listSecurity.cs" />
+    <Compile Include="datatables\listState.cs" />
+    <Compile Include="datatables\listUsers.cs" />
+    <Compile Include="models\account\account_account.cs" />
+    <Compile Include="models\account\account_tax.cs" />
+    <Compile Include="models\bookstore\report_intrastat_code.cs" />
+    <Compile Include="models\crm\crm_case_section.cs" />
+    <Compile Include="models\eurogerm_profile\list_allergen.cs" />
+    <Compile Include="models\eurogerm_profile\list_risk_technology.cs" />
+    <Compile Include="models\eurogerm_profile\risk_danger.cs" />
+    <Compile Include="models\mrp\mrp_bom.cs" />
+    <Compile Include="models\mrp\mrp_bom_revision.cs" />
+    <Compile Include="models\mrp\mrp_location_path.cs" />
+    <Compile Include="models\mrp\mrp_property.cs" />
+    <Compile Include="models\mrp\mrp_subproduct.cs" />
+    <Compile Include="models\mrp\mrp_workcenter.cs" />
+    <Compile Include="models\price\pricelist_partnerinfo.cs" />
+    <Compile Include="models\product\pricelist_partnerinfo.cs" />
+    <Compile Include="models\product\product_allergen_to_declare.cs" />
+    <Compile Include="models\product\product_application_type.cs" />
+    <Compile Include="models\product\product_category.cs" />
+    <Compile Include="models\product\product_packaging.cs" />
+    <Compile Include="models\product\product_process_type.cs" />
+    <Compile Include="models\product\product_product.cs" />
+    <Compile Include="models\product\product_risk.cs" />
+    <Compile Include="models\product\product_risk_label.cs" />
+    <Compile Include="models\product\product_risk_technology.cs" />
+    <Compile Include="models\product\product_root_code.cs" />
+    <Compile Include="models\product\product_security.cs" />
+    <Compile Include="models\product\product_supplierinfo.cs" />
+    <Compile Include="models\product\product_supplierinfo_contract.cs" />
+    <Compile Include="models\product\product_supplierorigins.cs" />
+    <Compile Include="models\product\product_template.cs" />
+    <Compile Include="models\product\product_ul.cs" />
+    <Compile Include="models\product\product_uom.cs" />
+    <Compile Include="models\product\product_validation.cs" />
+    <Compile Include="models\product\product_valnut.cs" />
+    <Compile Include="models\quality\comment_quality_formulator.cs" />
+    <Compile Include="models\quality\quality_cdc.cs" />
+    <Compile Include="models\res\res_company.cs" />
+    <Compile Include="models\res\res_country.cs" />
+    <Compile Include="models\res\res_country_state.cs" />
+    <Compile Include="models\res\res_partner.cs" />
+    <Compile Include="models\res\res_partner_address.cs" />
+    <Compile Include="models\res\res_partner_contact.cs" />
+    <Compile Include="models\res\res_users.cs" />
+    <Compile Include="models\stock\stock_location.cs" />
+    <Compile Include="models\stock\stock_location_type.cs" />
+    <Compile Include="models\stock\stock_move.cs" />
+    <Compile Include="models\stock\stock_picking.cs" />
+    <Compile Include="models\stock\stock_production_lot.cs" />
+    <Compile Include="models\stock\stock_tracking.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IMDEV.OpenERP\IMDEV.OpenERP.csproj">
+      <Project>{A4218208-C0F3-4AAA-987B-67BF8E121F5B}</Project>
+      <Name>IMDEV.OpenERP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

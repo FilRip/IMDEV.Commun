@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A027A36A-42BE-4B86-9A06-9B9ECE6759C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IMDEV.PackUnpack</RootNamespace>
+    <AssemblyName>IMDEV.PackUnpack</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gz.cs" />
+    <Compile Include="lzma.cs" />
+    <Compile Include="lzma\Common\CRC.cs" />
+    <Compile Include="lzma\LZMA\LzmaBase.cs" />
+    <Compile Include="lzma\LZMA\LzmaDecoder.cs" />
+    <Compile Include="lzma\LZMA\LzmaEncoder.cs" />
+    <Compile Include="lzma\LZ\IMatchFinder.cs" />
+    <Compile Include="lzma\LZ\LzBinTree.cs" />
+    <Compile Include="lzma\LZ\LzInWindow.cs" />
+    <Compile Include="lzma\LZ\LzOutWindow.cs" />
+    <Compile Include="lzma\Common\ICoder.cs" />
+    <Compile Include="lzma\RangeCoder\RangeCoder.cs" />
+    <Compile Include="lzma\RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="lzma\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="nunrar\Archive\FileInfoRarArchiveVolume.cs" />
+    <Compile Include="nunrar\Archive\FileInfoRarFilePart.cs" />
+    <Compile Include="nunrar\Archive\RarArchive.cs" />
+    <Compile Include="nunrar\Archive\RarArchive.Extensions.cs" />
+    <Compile Include="nunrar\Archive\RarArchiveEntry.cs" />
+    <Compile Include="nunrar\Archive\RarArchiveEntry.Extensions.cs" />
+    <Compile Include="nunrar\Archive\RarArchiveVolume.cs" />
+    <Compile Include="nunrar\Archive\RarArchiveVolumeFactory.cs" />
+    <Compile Include="nunrar\Archive\SeekableStreamFilePart.cs" />
+    <Compile Include="nunrar\Archive\StreamRarArchiveVolume.cs" />
+    <Compile Include="nunrar\Common\ExtractOptions.cs" />
+    <Compile Include="nunrar\Common\IRarExtractionListener.cs" />
+    <Compile Include="nunrar\Common\RarEntry.cs" />
+    <Compile Include="nunrar\Common\RarFilePart.cs" />
+    <Compile Include="nunrar\Common\RarOptions.cs" />
+    <Compile Include="nunrar\Common\RarVolume.cs" />
+    <Compile Include="nunrar\ConsoleRarExtractionListener.cs" />
+    <Compile Include="nunrar\Exceptions\InvalidRarFormatException.cs" />
+    <Compile Include="nunrar\Exceptions\MultipartStreamRequiredException.cs" />
+    <Compile Include="nunrar\Exceptions\RarException.cs" />
+    <Compile Include="nunrar\Exceptions\RarExtractionException.cs" />
+    <Compile Include="nunrar\Headers\ArchiveHeader.cs" />
+    <Compile Include="nunrar\Headers\AVHeader.cs" />
+    <Compile Include="nunrar\Headers\CommentHeader.cs" />
+    <Compile Include="nunrar\Headers\EndArchiveHeader.cs" />
+    <Compile Include="nunrar\Headers\FileHeader.cs" />
+    <Compile Include="nunrar\Headers\FileNameDecoder.cs" />
+    <Compile Include="nunrar\Headers\Flags.cs" />
+    <Compile Include="nunrar\Headers\FlagUtility.cs" />
+    <Compile Include="nunrar\Headers\MarkHeader.cs" />
+    <Compile Include="nunrar\Headers\NewSubHeader.cs" />
+    <Compile Include="nunrar\Headers\RarHeader.cs" />
+    <Compile Include="nunrar\Headers\RarHeaderFactory.cs" />
+    <Compile Include="nunrar\Headers\SignHeader.cs" />
+    <Compile Include="nunrar\IO\MarkingBinaryReader.cs" />
+    <Compile Include="nunrar\IO\MultiVolumeStream.cs" />
+    <Compile Include="nunrar\IO\ReadOnlySubStream.cs" />
+    <Compile Include="nunrar\IO\StreamingMode.cs" />
+    <Compile Include="nunrar\LazyReadOnlyCollection.cs" />
+    <Compile Include="nunrar\NullRarExtractionListener.cs" />
+    <Compile Include="nunrar\Reader\MultiVolumeRarReader.cs" />
+    <Compile Include="nunrar\Reader\NonSeekableStreamFilePart.cs" />
+    <Compile Include="nunrar\Reader\RarReader.cs" />
+    <Compile Include="nunrar\Reader\RarReader.Extensions.cs" />
+    <Compile Include="nunrar\Reader\RarReaderEntry.cs" />
+    <Compile Include="nunrar\Reader\RarReaderVolume.cs" />
+    <Compile Include="nunrar\Reader\SingleVolumeRarReader.cs" />
+    <Compile Include="nunrar\Unpack\Decode\AudioVariables.cs" />
+    <Compile Include="nunrar\Unpack\Decode\BitDecode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\CodeType.cs" />
+    <Compile Include="nunrar\Unpack\Decode\Compress.cs" />
+    <Compile Include="nunrar\Unpack\Decode\Decode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\DistDecode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\FilterType.cs" />
+    <Compile Include="nunrar\Unpack\Decode\LitDecode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\LowDistDecode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\MultDecode.cs" />
+    <Compile Include="nunrar\Unpack\Decode\RepDecode.cs" />
+    <Compile Include="nunrar\Unpack\PPM\BlockTypes.cs" />
+    <Compile Include="nunrar\Unpack\PPM\FreqData.cs" />
+    <Compile Include="nunrar\Unpack\PPM\ModelPPM.cs" />
+    <Compile Include="nunrar\Unpack\PPM\Pointer.cs" />
+    <Compile Include="nunrar\Unpack\PPM\PPMContext.cs" />
+    <Compile Include="nunrar\Unpack\PPM\RangeCoder.cs" />
+    <Compile Include="nunrar\Unpack\PPM\RarMemBlock.cs" />
+    <Compile Include="nunrar\Unpack\PPM\RarNode.cs" />
+    <Compile Include="nunrar\Unpack\PPM\SEE2Context.cs" />
+    <Compile Include="nunrar\Unpack\PPM\State.cs" />
+    <Compile Include="nunrar\Unpack\PPM\StateRef.cs" />
+    <Compile Include="nunrar\Unpack\PPM\SubAllocator.cs" />
+    <Compile Include="nunrar\Unpack\RarCRC.cs" />
+    <Compile Include="nunrar\Unpack\Unpack.cs" />
+    <Compile Include="nunrar\Unpack\Unpack15.cs" />
+    <Compile Include="nunrar\Unpack\Unpack20.cs" />
+    <Compile Include="nunrar\Unpack\UnpackFilter.cs" />
+    <Compile Include="nunrar\Unpack\UnpackUtility.cs" />
+    <Compile Include="nunrar\Unpack\VM\BitInput.cs" />
+    <Compile Include="nunrar\Unpack\VM\RarVM.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMCmdFlags.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMCommands.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMFlags.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMOpType.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMPreparedCommand.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMPreparedOperand.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMPreparedProgram.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMStandardFilters.cs" />
+    <Compile Include="nunrar\Unpack\VM\VMStandardFilterSignature.cs" />
+    <Compile Include="nunrar\Utility.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharpZipLib\BZip2\BZip2.cs" />
+    <Compile Include="SharpZipLib\BZip2\BZip2Constants.cs" />
+    <Compile Include="SharpZipLib\BZip2\BZip2Exception.cs" />
+    <Compile Include="SharpZipLib\BZip2\BZip2InputStream.cs" />
+    <Compile Include="SharpZipLib\BZip2\BZip2OutputStream.cs" />
+    <Compile Include="SharpZipLib\Checksums\Adler32.cs" />
+    <Compile Include="SharpZipLib\Checksums\CRC32.cs" />
+    <Compile Include="SharpZipLib\Checksums\IChecksum.cs" />
+    <Compile Include="SharpZipLib\Checksums\StrangeCRC.cs" />
+    <Compile Include="SharpZipLib\Core\FileSystemScanner.cs" />
+    <Compile Include="SharpZipLib\Core\INameTransform.cs" />
+    <Compile Include="SharpZipLib\Core\IScanFilter.cs" />
+    <Compile Include="SharpZipLib\Core\NameFilter.cs" />
+    <Compile Include="SharpZipLib\Core\PathFilter.cs" />
+    <Compile Include="SharpZipLib\Core\StreamUtils.cs" />
+    <Compile Include="SharpZipLib\Core\WindowsPathUtils.cs" />
+    <Compile Include="SharpZipLib\Encryption\PkzipClassic.cs" />
+    <Compile Include="SharpZipLib\Encryption\ZipAESStream.cs" />
+    <Compile Include="SharpZipLib\Encryption\ZipAESTransform.cs" />
+    <Compile Include="SharpZipLib\GZip\GZIPConstants.cs" />
+    <Compile Include="SharpZipLib\GZip\GZipException.cs" />
+    <Compile Include="SharpZipLib\GZip\GzipInputStream.cs" />
+    <Compile Include="SharpZipLib\GZip\GzipOutputStream.cs" />
+    <Compile Include="SharpZipLib\Lzw\LzwConstants.cs" />
+    <Compile Include="SharpZipLib\Lzw\LzwException.cs" />
+    <Compile Include="SharpZipLib\Lzw\LzwInputStream.cs" />
+    <Compile Include="SharpZipLib\SharpZipBaseException.cs" />
+    <Compile Include="SharpZipLib\Tar\InvalidHeaderException.cs" />
+    <Compile Include="SharpZipLib\Tar\TarArchive.cs" />
+    <Compile Include="SharpZipLib\Tar\TarBuffer.cs" />
+    <Compile Include="SharpZipLib\Tar\TarEntry.cs" />
+    <Compile Include="SharpZipLib\Tar\TarException.cs" />
+    <Compile Include="SharpZipLib\Tar\TarHeader.cs" />
+    <Compile Include="SharpZipLib\Tar\TarInputStream.cs" />
+    <Compile Include="SharpZipLib\Tar\TarOutputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Deflater.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Inflater.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="SharpZipLib\Zip\FastZip.cs" />
+    <Compile Include="SharpZipLib\Zip\IEntryFactory.cs" />
+    <Compile Include="SharpZipLib\Zip\WindowsNameTransform.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipConstants.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipEntry.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipEntryFactory.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipException.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipExtraData.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipFile.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipHelperStream.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipInputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
+    <Compile Include="zip.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
