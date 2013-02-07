@@ -3,7 +3,7 @@
 Public Class scriptVBNET
     Inherits VBCodeProvider
 
-    Public Function interpreteFichier(ByVal nomFichier As String) As Compiler.CompilerResults
+    Public Function interpreteFichier(ByVal nomFichier As String, Optional ByVal reference As List(Of String) = Nothing) As Compiler.CompilerResults
         Try
             If ((nomFichier.StartsWith(".")) Or (nomFichier.StartsWith("\"))) Then nomFichier = My.Application.Info.DirectoryPath() & nomFichier
             If (IO.File.Exists(nomFichier)) Then
@@ -13,6 +13,11 @@ Public Class scriptVBNET
                 _parametresAssembly.ReferencedAssemblies.Add("system.xml.dll")
                 _parametresAssembly.ReferencedAssemblies.Add("system.data.dll")
                 _parametresAssembly.ReferencedAssemblies.Add("system.windows.forms.dll")
+                If (reference IsNot Nothing) Then
+                    For Each ref As String In reference
+                        _parametresAssembly.ReferencedAssemblies.Add(ref)
+                    Next
+                End If
                 _parametresAssembly.ReferencedAssemblies.Add(My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".exe")
                 _parametresAssembly.CompilerOptions = "/t:library"
                 _parametresAssembly.GenerateInMemory = True
@@ -23,7 +28,7 @@ Public Class scriptVBNET
         Return Nothing
     End Function
 
-    Public Function interpreteTexte(ByVal texte As String) As Boolean
+    Public Function interpreteTexte(ByVal texte As String, Optional ByVal reference As List(Of String) = Nothing) As Boolean
         Try
             Dim script As String
             script = "Imports System" & vbCrLf
@@ -45,6 +50,11 @@ Public Class scriptVBNET
             _parametresAssembly.ReferencedAssemblies.Add("system.xml.dll")
             _parametresAssembly.ReferencedAssemblies.Add("system.data.dll")
             _parametresAssembly.ReferencedAssemblies.Add("system.windows.forms.dll")
+            If (reference IsNot Nothing) Then
+                For Each ref As String In reference
+                    _parametresAssembly.ReferencedAssemblies.Add(ref)
+                Next
+            End If
             _parametresAssembly.ReferencedAssemblies.Add(My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".exe")
             _parametresAssembly.CompilerOptions = "/t:library"
             Dim result As Compiler.CompilerResults
