@@ -28,7 +28,7 @@ Public Class scriptVBNET
         Return Nothing
     End Function
 
-    Public Function interpreteTexte(ByVal texte As String, Optional ByVal reference As List(Of String) = Nothing) As Boolean
+    Public Function interpreteTexte(ByVal texte As String, Optional ByVal reference As List(Of String) = Nothing) As Object
         Try
             Dim script As String
             script = "Imports System" & vbCrLf
@@ -64,12 +64,11 @@ Public Class scriptVBNET
                 Dim method As System.Reflection.MethodInfo
                 obj = result.CompiledAssembly.CreateInstance("dValuate.EvalRunTime")
                 method = obj.GetType().GetMethod("EvaluateIt")
-                method.Invoke(obj, Nothing)
-                Return True
+                Return method.Invoke(obj, Nothing)
             End If
         Catch ex As Exception
         End Try
-        Return False
+        Return Nothing
     End Function
 
 End Class
