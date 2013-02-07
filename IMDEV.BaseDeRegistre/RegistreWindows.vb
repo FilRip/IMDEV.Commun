@@ -1,13 +1,13 @@
 ﻿Public Class RegistreWindows
 
     ''' <summary>
-    ''' Retourne le contenu, en chaine, d'une valeur dans la base de registre Windows sur HKEY_CURRENT_USER (Utilisateur actuellement loggé dans Windows)
+    ''' Retourne le contenu d'une valeur dans la base de registre Windows sur HKEY_CURRENT_USER (Utilisateur actuellement loggé dans Windows)
     ''' </summary>
     ''' <param name="DirName">Emplacement de la clé dans la base de registre (Exclu "HKEY_CURRENT_USER")</param>
     ''' <param name="name">Nom de la 'variable'</param>
     ''' <returns>Contenu de la 'variable'</returns>
     ''' <remarks></remarks>
-    Public Shared Function GetKeyValueCurrentUser(ByVal DirName As String, ByVal name As String) As String
+    Public Shared Function GetKeyValueCurrentUser(ByVal DirName As String, ByVal name As String) As Object
         Return Microsoft.Win32.Registry.CurrentUser.OpenSubKey(DirName).GetValue(name)
     End Function
 
@@ -28,9 +28,14 @@
     ''' </summary>
     ''' <param name="DirName">Emplacement de la clé à effacer</param>
     ''' <remarks></remarks>
-    Public Shared Sub DelKeyCurrentUser(ByVal DirName As String)
-        Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree(DirName)
-    End Sub
+    Public Shared Function DelKeyCurrentUser(ByVal DirName As String) As Boolean
+        Try
+            Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree(DirName)
+            Return True
+        Catch ex As Exception
+        End Try
+        Return False
+    End Function
 
     ''' <summary>
     ''' Retourne le contenu, en chaine, d'une valeur dans la base de registre Windows sur HKEY_LOCAL_MACHINE (base de registre global à tous les utilisateurs Windows)
@@ -39,7 +44,7 @@
     ''' <param name="name">Nom de la 'variable' à lire</param>
     ''' <returns>Contenu de la 'variable'</returns>
     ''' <remarks></remarks>
-    Public Shared Function GetKeyValueLocalMachine(ByVal DirName As String, ByVal name As String) As String
+    Public Shared Function GetKeyValueLocalMachine(ByVal DirName As String, ByVal name As String) As Object
         Return Microsoft.Win32.Registry.LocalMachine.OpenSubKey(DirName).GetValue(name)
     End Function
 
