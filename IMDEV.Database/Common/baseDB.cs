@@ -15,6 +15,7 @@ namespace IMDEV.Database.Common
         abstract public unRetourRequete retourneDonnees(string requete);
         abstract public bool executeRequete(string requete);
         abstract public object executeScalaire(string requete);
+        abstract public object executeScalaire();
         abstract public bool prepareProcedureStockee(string nom);
         abstract public bool ajouteParametrePS(string nom, object valeur);
         abstract public bool executeProcedureStockee();

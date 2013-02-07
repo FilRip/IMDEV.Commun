@@ -255,6 +255,21 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
+        public override object executeScalaire()
+        {
+            verifConnexion();
+            try
+            {
+                _proc.Connection = _conn;
+                return _proc.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            return null;
+        }
+
         public override ConnectionState state()
         {
             return _conn.State;

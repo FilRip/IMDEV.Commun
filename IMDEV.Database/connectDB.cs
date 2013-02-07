@@ -120,6 +120,12 @@ namespace IMDEV.Database
             return _myConnection.executeScalaire(requete);
         }
 
+        public object executeScalaire()
+        {
+            if (checkCurrentServerType()) return null;
+            return _myConnection.executeScalaire();
+        }
+
         public void fermer()
         {
             _myConnection.fermer();
