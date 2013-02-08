@@ -20,7 +20,7 @@ namespace IMDEV.Database.Common
         private string _userName;
         private string _password;
         private int _portTCP;
-        private int _serverType;
+        private connectDB.TYPE_SERVEUR _serverType;
         private string _engine;
         private TYPE_ODBC _odbcType;
 
@@ -60,7 +60,7 @@ namespace IMDEV.Database.Common
         }
 
         [XmlElement()]
-        public int serverType
+        public connectDB.TYPE_SERVEUR serverType
         {
             get { return _serverType; }
             set { _serverType = value; }
