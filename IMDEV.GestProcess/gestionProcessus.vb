@@ -92,4 +92,19 @@
         Return True
     End Function
 
+    Public Function startShadowedProcess(ByVal pathAndFileName As String, ByVal args() As String, Optional ByVal appDomaineName As String = "") As Boolean
+        Dim fileName As String = ""
+        Dim ad As AppDomain
+        Dim adp As AppDomainSetup
+
+        adp = New AppDomainSetup()
+        fileName = System.IO.Path.GetFileName(pathAndFileName)
+        If (appDomaineName = "") Then
+            appDomaineName = fileName & ".shadowed." & System.IO.Path.GetExtension(pathAndFileName)
+        End If
+        adp.ShadowCopyFiles = "true"
+        ad = AppDomain.CreateDomain(appDomaineName, AppDomain.CurrentDomain.Evidence, adp)
+        ad.ExecuteAssembly(pathAndFileName, AppDomain.CurrentDomain.Evidence, args)
+    End Function
+
 End Class
