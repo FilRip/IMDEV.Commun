@@ -26,6 +26,7 @@ namespace IMDEV.OpenERP.models.@base
             MANY2MANY,
             RELATED,
             FUNCTION,
+            REFERENCE
         }
 
         private string _name = "";
@@ -293,6 +294,9 @@ namespace IMDEV.OpenERP.models.@base
                                     break;
                                 case "one2many":
                                     _type = FIELD_TYPE.ONE2MANY;
+                                    break;
+                                case "reference":
+                                    _type = FIELD_TYPE.REFERENCE;
                                     break;
                                 default:
                                     throw new Exception("Type de champs OpenERP inconnu");
