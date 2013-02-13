@@ -9,11 +9,11 @@ namespace IMDEV.OpenERP.models.@base {
     public class listProperties : Hashtable {
         
         /// <summary>
-        /// Retourne ou d�fini le contenu d'une propri�t�
+        /// Retourne ou défini le contenu d'une propriété
         /// </summary>
-        /// <param name="champs">Nom de la propri�t�</param>
-        /// <value>Nouvelle valeur pour cette propri�t�</value>
-        /// <returns>La valeur de la propri�t�</returns>
+        /// <param name="champs">Nom de la propriété</param>
+        /// <value>Nouvelle valeur pour cette propriété</value>
+        /// <returns>La valeur de la propriété</returns>
         /// <remarks></remarks>
         public object value(string champs)
         {
