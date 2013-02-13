@@ -65,7 +65,17 @@ namespace IMDEV.OpenERP.Clients
         {
             get { return _work; }
         }
-        
+
+        public void setHost(string host)
+        {
+            _config.host = host;
+        }
+        public void setHost(string host, int port)
+        {
+            _config.host = host;
+            _config.port = port;
+        }
+
         protected string url(SERVICE_XMLRPC extension)
         {
             if ((_config.host == "")) {
