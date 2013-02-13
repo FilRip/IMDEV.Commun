@@ -64,6 +64,7 @@
     <Compile Include="models\eurogerm_profile\list_allergen.cs" />
     <Compile Include="models\eurogerm_profile\list_risk_technology.cs" />
     <Compile Include="models\eurogerm_profile\risk_danger.cs" />
+    <Compile Include="models\ir\ir_ui_menu.cs" />
     <Compile Include="models\mrp\mrp_bom.cs" />
     <Compile Include="models\mrp\mrp_bom_revision.cs" />
     <Compile Include="models\mrp\mrp_location_path.cs" />
