@@ -56,6 +56,8 @@
     <Compile Include="datatables\listState.cs" />
     <Compile Include="datatables\listUsers.cs" />
     <Compile Include="models\account\account_account.cs" />
+    <Compile Include="models\account\account_invoice.cs" />
+    <Compile Include="models\account\account_invoice_line.cs" />
     <Compile Include="models\account\account_tax.cs" />
     <Compile Include="models\bookstore\report_intrastat_code.cs" />
     <Compile Include="models\crm\crm_case_section.cs" />
