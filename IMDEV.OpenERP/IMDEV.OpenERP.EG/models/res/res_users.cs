@@ -1219,6 +1219,10 @@ namespace IMDEV.OpenERP.EG.models.res
             get { return _fv_context_tz; }
             set { _fv_context_tz = value; }
         }
+        public string CODE_context_tz
+        {
+            get { return _frv_context_tz[(int)_fv_context_tz]; }
+        }
         public string LIBELLE_context_tz
         {
             get { return _fl_context_tz[(int)_fv_context_tz]; }
@@ -1306,6 +1310,10 @@ namespace IMDEV.OpenERP.EG.models.res
         {
             get { return _fv_context_lang; }
             set { _fv_context_lang = value; }
+        }
+        public string CODE_context_lang
+        {
+            get { return _frv_context_lang[(int)_fv_context_lang]; }
         }
         public string LIBELLE_context_lang
         {

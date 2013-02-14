@@ -133,6 +133,9 @@ namespace test_IMDEV.OpenERP
                 richTextBox1.AppendText("public string LIBELLE_" + champs.Name + " {\r\n");
                 richTextBox1.AppendText("get { return _fl_" + champs.Name + "[(int)_fv_" + champs.Name + "]; }\r\n");
                 richTextBox1.AppendText("}\r\n");
+                richTextBox1.AppendText("public string CODE_" + champs.Name + " {\r\n");
+                richTextBox1.AppendText("get { return _frv_" + champs.Name + "[(int)_fv_" + champs.Name + "]; }\r\n");
+                richTextBox1.AppendText("}\r\n");
             }
             else
             {
