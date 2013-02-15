@@ -541,6 +541,38 @@ namespace IMDEV.OpenERP.Clients
             e.Result = exportDataData((string)((Hashtable)(e.Argument))["resourceName"], (List<int>)((Hashtable)(e.Argument))["listId"], (List<string>)((Hashtable)(e.Argument))["listFields"]);
         }
 
+        public models.@base.listProperties getData(string resourceName, string order, string what, ArrayList comp, models.@base.listProperties context)
+        {
+            Interfaces.IObject conn;
+            object retour;
+            List<models.@base.listProperties> ret = new List<models.@base.listProperties>();
+            XmlRpcStruct boucle;
+            models.@base.listProperties list;
+            try
+            {
+                conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
+                conn.Url = url(SERVICE_XMLRPC.@object);
+                retour = conn.executeFiveParam(_config.database, _config.userId, _config.password, resourceName, "get", order, what, comp.ToArray(),false, context.toArray());
+                boucle = ((XmlRpcStruct)((object[])((((object[])(retour))[0])))[2]);
+                list = new IMDEV.OpenERP.models.@base.listProperties();
+                list.copyData(boucle);
+                return list;
+            }
+            catch (Exception ex)
+            {
+                if ((_config.reportXmlRpcError
+                            && (ex.GetType() == typeof(XmlRpcFaultException))))
+                {
+                    throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
+                }
+            }
+            finally
+            {
+                conn = null;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Retourne les détails d'un(des) champ(s) d'un objet OpenERP
         /// </summary>
@@ -630,20 +662,16 @@ namespace IMDEV.OpenERP.Clients
         /// <param name="viewType">TEST EN COURS sur la véritable signification de ce paramètre optionel</param>
         /// <returns>Une liste des propriétés de la vue</returns>
         /// <remarks></remarks>
-        public models.@base.listProperties fieldsViewGet(int viewId)
-        {
-            return fieldsViewGet(viewId, "form");
-        }
-        public models.@base.listProperties fieldsViewGet(int viewId, string viewType)
+        public models.@base.listProperties fieldsViewGet(string resourceName, int viewId, string viewType, IMDEV.OpenERP.models.@base.listProperties context)
         {
             if (checkIfBusy())
             {
                 return null;
             }
-            return fieldsViewGetData(viewId, viewType);
+            return fieldsViewGetData(resourceName, viewId, viewType, context);
         }
 
-        private models.@base.listProperties fieldsViewGetData(int viewId, string viewType)
+        private models.@base.listProperties fieldsViewGetData(string resourceName, int viewId, string viewType, IMDEV.OpenERP.models.@base.listProperties context)
         {
             Interfaces.IObject conn;
             object retour;
@@ -652,7 +680,7 @@ namespace IMDEV.OpenERP.Clients
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                retour = conn.executeTwoParam(_config.database, _config.userId, _config.password, "ir.ui.view", "fields_view_get", viewId, viewType);
+                retour = conn.executeThreeParam(_config.database, _config.userId, _config.password, resourceName, "fields_view_get", viewId, viewType, context.toArray());
                 ret = new models.@base.listProperties();
                 ret.copyData((XmlRpcStruct)retour);
             }
@@ -679,29 +707,23 @@ namespace IMDEV.OpenERP.Clients
         /// <param name="callBack">Fonction appelée quand c'est terminé</param>
         /// <param name="prioritaire">Passe cette requete en priorité par rapport aux autres en attentes</param>
         /// <remarks></remarks>
-        public void fieldsViewGetAsync(int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        public void fieldsViewGetAsync(string resourceName, int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string viewType, IMDEV.OpenERP.models.@base.listProperties context)
         {
-            fieldsViewGetAsync(viewId, callBack, "form", false);
+            fieldsViewGetAsync(resourceName, viewId, callBack, viewType, context, false);
         }
-        public void fieldsViewGetAsync(int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string viewType)
-        {
-            fieldsViewGetAsync(viewId, callBack, viewType, false);
-        }
-        public void fieldsViewGetAsync(int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack, bool prioritaire)
-        {
-            fieldsViewGetAsync(viewId, callBack, "form", prioritaire);
-        }
-        public void fieldsViewGetAsync(int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string viewType, bool prioritaire)
+        public void fieldsViewGetAsync(string resourceName, int viewId, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string viewType, IMDEV.OpenERP.models.@base.listProperties context, bool prioritaire)
         {
             Hashtable param = new Hashtable();
+            param.Add("resourceName",resourceName);
             param.Add("viewId", viewId);
             param.Add("viewType", viewType);
+            param.Add("context", context);
             _work.addTask(new System.ComponentModel.DoWorkEventHandler(this.fieldsViewGetAsyncCall), callBack, param, prioritaire);
         }
 
         private void fieldsViewGetAsyncCall(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            e.Result = fieldsViewGet((int)((Hashtable)(e.Argument))["viewId"], (string)((Hashtable)(e.Argument))["viewType"]);
+            e.Result = fieldsViewGet((string)((Hashtable)(e.Argument))["resourceName"], (int)((Hashtable)(e.Argument))["viewId"], (string)((Hashtable)(e.Argument))["viewType"], (IMDEV.OpenERP.models.@base.listProperties)((Hashtable)(e.Argument))["context"]);
         }
 
         /// <summary>

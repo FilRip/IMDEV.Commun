@@ -26,6 +26,9 @@ namespace IMDEV.OpenERP.Interfaces
         [XmlRpcMethod("execute")]
         object executeFourParam(string bdd, int userId, string password, string resource, string ordre, object quoi, object toWrite, object param1, object param2);
 
+        [XmlRpcMethod("execute")]
+        object executeFiveParam(string bdd, int userId, string password, string resource, string ordre, object quoi, object toWrite, object param1, object param2, object param3);
+
         /* INFO : fonctions restantes, non documentées, lu dans un fichier log des connexion d'un client GTK :
         ' request_get
         ' context_get

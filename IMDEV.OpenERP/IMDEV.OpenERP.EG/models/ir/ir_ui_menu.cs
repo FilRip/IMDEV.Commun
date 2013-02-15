@@ -64,9 +64,9 @@ namespace IMDEV.OpenERP.EG.models.ir
             get { return (string)listProperties.value("complete_name", aField.FIELD_TYPE.CHAR); }
         }
 
-        public System.Collections.ArrayList action
+        public string action
         {
-            get { return (System.Collections.ArrayList)listProperties.value("action", aField.FIELD_TYPE.REFERENCE); }
+            get { return (string)listProperties.value("action", aField.FIELD_TYPE.REFERENCE); }
             set { listProperties.setValue("action", value); }
         }
 

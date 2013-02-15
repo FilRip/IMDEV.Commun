@@ -78,7 +78,6 @@ namespace IMDEV.OpenERP.Clients
         {
             Interfaces.Icommon conn;
             object retour;
-            int i = -1;
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.Icommon>();
@@ -94,10 +93,7 @@ namespace IMDEV.OpenERP.Clients
             }
             catch
             {
-                _config.setUserId(i);
-                _config.username = "";
-                _config.password = "";
-                _config.database = "";
+                _config.setUserId(-1);
             }
             finally
             {
