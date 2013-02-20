@@ -333,6 +333,7 @@ namespace IMDEV.OpenERP.EG.models.account
         public string name
         {
             get { return (string)listProperties.value("name", aField.FIELD_TYPE.CHAR); }
+            set { listProperties.setValue("name", value); }
         }
 
         private manyToOne _f_partner_shipping_id = new manyToOne(); //res.partner.address

@@ -23,5 +23,21 @@ namespace IMDEV.OpenERP.EG.datatables
             }
             return null;
         }
+
+        public static account_tax aTax(int i, Clients.clientOpenERP clientOERP)
+        {
+            return aTax(i, clientOERP, null);
+        }
+        public static account_tax aTax(int i, Clients.clientOpenERP clientOERP, OpenERP.models.@base.listProperties context)
+        {
+            List<object> result;
+
+            result = clientOERP.search(new IMDEV.OpenERP.models.query.aQuery("id",i), typeof(account_tax), true, context);
+            if ((result != null) && (result.Count > 0))
+            {
+                return (account_tax)result[0];
+            }
+            return null;
+        }
     }
 }
