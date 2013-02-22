@@ -29,6 +29,11 @@ namespace IMDEV.OpenERP.models.query
             addParameter(id);
         }
 
+        public aQuery(Int64 id)
+        {
+            addParameter(id);
+        }
+
         public aQuery(List<int> listId)
         {
             foreach (int i in listId)
