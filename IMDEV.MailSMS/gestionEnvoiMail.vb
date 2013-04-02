@@ -96,7 +96,7 @@ Public Class gestionEnvoiMail
     ''' <param name="login">Login du serveur SMTP</param>
     ''' <param name="mdp">mot de passe du serveur SMTP</param>
     ''' <remarks></remarks>
-    Public Sub authetificationSMTP(ByVal login As String, ByVal mdp As String)
+    Public Sub authentificationSMTP(ByVal login As String, ByVal mdp As String)
         _auth = New Net.NetworkCredential(login, mdp)
     End Sub
 
