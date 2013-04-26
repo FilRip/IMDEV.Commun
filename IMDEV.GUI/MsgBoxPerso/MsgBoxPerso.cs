@@ -14,7 +14,8 @@ namespace IMDEV.GUI.MsgBoxPerso
         private System.Windows.Forms.Label lblBody;
         private System.Windows.Forms.Panel panelBoutons;
         private List<MsgBoxPersoButton> _listeBoutons = new List<MsgBoxPersoButton>();
-        
+        private int maxSize;
+
         private const int START_X_BUTTON = 16;
         
         public MsgBoxPerso()
@@ -81,7 +82,8 @@ namespace IMDEV.GUI.MsgBoxPerso
         void init()
         {
             lblBody.Text = _body;
-            this.Width = moreLength();
+            maxSize = moreLength();
+            this.Width = maxSize;
             int decalageX = 0;
             System.Windows.Forms.Button btn;
             if (_listeBoutons.Count == 0)
@@ -101,7 +103,10 @@ namespace IMDEV.GUI.MsgBoxPerso
                 btn.Click += new System.EventHandler(this.clickButton);
                 panelBoutons.Controls.Add(btn);
                 if (this.Width < decalageX)
+                {
                     this.Width = (decalageX + 40);
+                    maxSize = this.Width;
+                }
             }
             panelBoutons_Resize(null, null);
         }
@@ -162,9 +167,15 @@ namespace IMDEV.GUI.MsgBoxPerso
 
             this.Shown += new EventHandler(MsgBoxPerso_Shown);
             this.panelBoutons.Resize += new EventHandler(panelBoutons_Resize);
+            this.Resize+=new EventHandler(MsgBoxPerso_Resize);
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+        }
+
+        void MsgBoxPerso_Resize(object sender, System.EventArgs e)
+        {
+            if (this.Width < maxSize) this.Width = maxSize;
         }
 
         void MsgBoxPerso_Shown(object sender, System.EventArgs e)
@@ -180,13 +191,13 @@ namespace IMDEV.GUI.MsgBoxPerso
                 int newStartX;
                 int decalageX;
                 foreach (System.Windows.Forms.Button btn in panelBoutons.Controls)
-                    lengthButton = (lengthButton + (btn.Width + 16));
+                    lengthButton = (lengthButton + (btn.Width + START_X_BUTTON));
 
                 newStartX = ((panelBoutons.Width - lengthButton) / 2);
                 decalageX = newStartX;
                 foreach (System.Windows.Forms.Button btn in panelBoutons.Controls)
                 {
-                    btn.Left = (decalageX + 16);
+                    btn.Left = (decalageX + START_X_BUTTON);
                     decalageX = (decalageX + btn.Width);
                 }
             }
