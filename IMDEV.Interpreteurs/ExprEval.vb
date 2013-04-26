@@ -13,12 +13,12 @@ Public Class ExprEval
     ''' <summary>
     ''' Class ExprEval. Evaluation d'expression mathématique en dynamique
     ''' avec possibilités d'y ajouter des variables en dynamique
-    ''' La variable "PI" de valeur 3.14159 est ajoutée automatiquement
+    ''' La variable "PI" est ajoutée automatiquement
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub New()
         MyBase.New()
-        _listeVariables.Add(New uneVariableExprEval("PI", 3.14159))
+        _listeVariables.Add(New uneVariableExprEval("PI", Math.PI))
     End Sub
 
     ''' <summary>
