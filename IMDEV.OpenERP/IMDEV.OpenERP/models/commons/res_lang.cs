@@ -16,7 +16,6 @@ namespace IMDEV.OpenERP.models.common
             set { listProperties.setValue("date_format", value); }
         }
 
-
         public enum ENUM_DIRECTION
         {
             NULL,
@@ -47,7 +46,6 @@ namespace IMDEV.OpenERP.models.common
             get { return (string)listProperties.value("code", aField.FIELD_TYPE.CHAR); }
             set { listProperties.setValue("code", value); }
         }
-
 
         public string name
         {

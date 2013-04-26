@@ -6,8 +6,8 @@ using System.Collections;
 
 namespace IMDEV.OpenERP.models.fields.relations
 {
-    public class manyToMany : oneToMany {
-        
+    public class manyToMany : oneToMany
+    {
         /// <summary>
         /// Order 3  of OpenERP. Remove the link to an object
         /// </summary>
@@ -16,9 +16,9 @@ namespace IMDEV.OpenERP.models.fields.relations
         public void removeLink(int id)
         {
             ArrayList ordre;
-            if (orderExist(ORDERS.REMOVE_LINK, id)) {
+            if (orderExist(ORDERS.REMOVE_LINK, id))
                 return;
-            }
+
             ordre = createOrder(ORDERS.REMOVE_LINK);
             ordre.Add(id);
         }
@@ -101,15 +101,14 @@ namespace IMDEV.OpenERP.models.fields.relations
             ArrayList ordre;
             ArrayList listId = new ArrayList();
             ordre = getOrder(ORDERS.SET_LINK);
-            if ((ordre.Count == 1)) {
+            if ((ordre.Count == 1))
+            {
                 ordre.Add(0);
                 listId.Add(id);
                 ordre.Add(listId);
             }
             else
-            {
                 ((ArrayList)(ordre[2])).Add(id);
-            }
         }
         
         /// <summary>

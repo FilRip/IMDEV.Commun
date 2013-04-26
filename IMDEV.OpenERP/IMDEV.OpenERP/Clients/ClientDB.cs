@@ -78,7 +78,7 @@ namespace IMDEV.OpenERP.Clients
 
         protected string url(SERVICE_XMLRPC extension)
         {
-            if ((_config.host == "")) {
+            if (_config.host == "") {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NO_HOST);
             }
             return ("http://" + _config.host + ":" + _config.port.ToString() + "/xmlrpc/" + extension.ToString());
@@ -372,12 +372,11 @@ namespace IMDEV.OpenERP.Clients
             int id;
             try
             {
-                if ((userPassword == "")) {
+                if (userPassword == "")
                     userPassword = adminPassword;
-                }
-                if ((lang == "")) {
+                if (lang == "")
                     lang = _config.defaultLanguage;
-                }
+
                 conn = XmlRpcProxyGen.Create<Interfaces.IDB>();
                 conn.Url = url(SERVICE_XMLRPC.db);
                 retour = conn.createDatabase(adminPassword, dbName, withDemoData, lang, userPassword);

@@ -23,9 +23,8 @@ namespace IMDEV.OpenERP.Clients
         public int generateReport(string resourceName, ArrayList id, models.query.aQueryReport model)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return generateReportData(resourceName, id, model);
         }
 
@@ -35,33 +34,25 @@ namespace IMDEV.OpenERP.Clients
             object retour;
             int numGen;
             if (!isConnected)
-            {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            }
-            if (((resourceName == "")
-                        || (((id == null)
-                        || (id.Count == 0))
-                        || (model == null))))
-            {
+            if ((resourceName == "")
+                        || (id == null)
+                        || (id.Count == 0)
+                        || (model == null))
                 throw new ArgumentNullException();
-            }
+
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.Ireport>();
                 conn.Url = url(SERVICE_XMLRPC.report);
                 retour = conn.report(_config.database, _config.userId, _config.password, resourceName, id.ToArray(), model.toXmlRpc(true));
                 if (int.TryParse((string)retour, out numGen))
-                {
                     return numGen;
-                }
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -126,13 +117,9 @@ namespace IMDEV.OpenERP.Clients
             models.reports.aReport ret = new models.reports.aReport();
             string _lastError = "";
             if (!isConnected)
-            {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            }
-            if ((idReport <= 0))
-            {
+            if (idReport <= 0)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "idReport can\'t be less or equal to zero");
-            }
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.Ireport>();
@@ -143,9 +130,7 @@ namespace IMDEV.OpenERP.Clients
                     {
                         retour = conn.getReport(_config.database, _config.userId, _config.password, idReport);
                         if ((retour != null) && (bool)((XmlRpcStruct)(retour))["state"])
-                        {
                             break;
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -166,14 +151,9 @@ namespace IMDEV.OpenERP.Clients
             catch (Exception ex)
             {
                 if ((ex.GetType() == typeof(Systeme.exceptionOpenERP)))
-                {
                     throw ex;
-                }
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, (ex.Message + ("\r\n" + ("CptTimeout : " + attempt))));
-                }
                 conn = null;
             }
             return null;

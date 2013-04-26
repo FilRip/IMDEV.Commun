@@ -6,28 +6,21 @@ using System.Collections;
 
 namespace IMDEV.OpenERP.models.@base
 {
-
     public abstract class anOpenERPObject
     {
 
         private listProperties _listePropriete = new listProperties();
 
         /// <summary>
-        /// Retourne la liste des propri�t�s de cet objet
+        /// Retourne la liste des propriété de cet objet
         /// </summary>
         /// <value></value>
-        /// <returns>liste de propri�t�s, contenant chacun un nom de champ et sa valeur</returns>
+        /// <returns>liste de propriété, contenant chacun un nom de champ et sa valeur</returns>
         /// <remarks></remarks>
         public listProperties listProperties
         {
-            get
-            {
-                return _listePropriete;
-            }
-            set
-            {
-                _listePropriete = value;
-            }
+            get { return _listePropriete; }
+            set { _listePropriete = value; }
         }
 
         public void copyData(CookComputing.XmlRpc.XmlRpcStruct source)
@@ -67,9 +60,7 @@ namespace IMDEV.OpenERP.models.@base
                         }
                     }
                     if (change)
-                    {
                         break;
-                    }
                 }
             }
             listeProprietesEnum = listeProprieteEnum();
@@ -92,9 +83,7 @@ namespace IMDEV.OpenERP.models.@base
                             }
                         }
                         if (change)
-                        {
                             break;
-                        }
                     }
                 }
             }
@@ -110,9 +99,7 @@ namespace IMDEV.OpenERP.models.@base
             foreach (string valeur in listeValeurs)
             {
                 if (valeur == val)
-                {
                     return i;
-                }
                 i++;
             }
             return 0;
@@ -122,8 +109,7 @@ namespace IMDEV.OpenERP.models.@base
         {
             System.Reflection.FieldInfo listeEnum;
             int i;
-            listeEnum = this.GetType().GetField(("_frv_" + prop.Name), (System.Reflection.BindingFlags.NonPublic
-                            | (System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static)));
+            listeEnum = this.GetType().GetField(("_frv_" + prop.Name), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static);
             i = getNumEnum(listeEnum, val);
             prop.SetValue(this, i, null);
         }
@@ -136,12 +122,8 @@ namespace IMDEV.OpenERP.models.@base
                 System.Reflection.PropertyInfo[] listProprietes;
                 listProprietes = this.GetType().GetProperties();
                 foreach (System.Reflection.PropertyInfo prop in listProprietes)
-                {
                     if (prop.PropertyType.BaseType == typeof(System.Enum))
-                    {
                         retour.Add(prop);
-                    }
-                }
             }
             catch
             {
@@ -162,9 +144,7 @@ namespace IMDEV.OpenERP.models.@base
                     if ((prop.PropertyType == typeof(fields.relations.manyToMany))
                                 || (prop.PropertyType == typeof(fields.relations.manyToOne))
                                 || (prop.PropertyType == typeof(fields.relations.oneToMany)))
-                    {
                         retour.Add(prop);
-                    }
                 }
             }
             catch
@@ -217,8 +197,7 @@ namespace IMDEV.OpenERP.models.@base
                                 retour.Add(prop.Name, 0);
                             else
                             {
-                                libEnum = this.GetType().GetField(("_frv_" + prop.Name), (System.Reflection.BindingFlags.NonPublic
-                                                | (System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static)));
+                                libEnum = this.GetType().GetField(("_frv_" + prop.Name), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static);
                                 retour.Add(prop.Name, ((System.Array)(libEnum.GetValue(this))).GetValue((int)prop.GetValue(this, null)));
                             }
                 }
@@ -229,12 +208,8 @@ namespace IMDEV.OpenERP.models.@base
                 {
                     System.Reflection.PropertyInfo prop = this.GetType().GetProperty(key);
                     if (prop != null)
-                    {
                         if (avecLectureSeule || prop.CanWrite)
-                        {
                             retour.Add(key, varStd[key]);
-                        }
-                    }
                 }
             }
             catch
@@ -327,15 +302,11 @@ namespace IMDEV.OpenERP.models.@base
                     result = ((int)listProperties.value("id") > 0);
                 }
                 else
-                {
                     result = clientOpenERP.update(this, context);
-                }
                 if (result)
                 {
                     foreach (System.Reflection.PropertyInfo prop in listeProprieteMultilangue())
-                    {
                         ((IMDEV.OpenERP.models.fields.texteMultilangue)(prop.GetValue(this, null))).sauveLangues(clientOpenERP);
-                    }
                     return true;
                 }
             }
@@ -376,14 +347,10 @@ namespace IMDEV.OpenERP.models.@base
             try
             {
                 if ((int)listProperties.value("id", aField.FIELD_TYPE.INTEGER) == 0)
-                {
                     throw new Exception("Cet objet n\'existe pas encore sur le serveur OpenERP");
-                }
                 retour = clientOpenERP.delete(this);
                 if (retour)
-                {
                     listProperties.setValue("id", 0);
-                }
             }
             catch 
             {
@@ -436,12 +403,8 @@ namespace IMDEV.OpenERP.models.@base
                 System.Reflection.PropertyInfo[] listProprietes;
                 listProprietes = this.GetType().GetProperties();
                 foreach (System.Reflection.PropertyInfo prop in listProprietes)
-                {
                     if (prop.PropertyType == typeof(fields.texteMultilangue))
-                    {
                         retour.Add(prop);
-                    }
-                }
             }
             catch 
             {

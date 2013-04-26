@@ -8,7 +8,6 @@ namespace IMDEV.OpenERP.models.query
 {
     public class aQuery : baseQuery
     {
-
         public enum OPERATORS
         {
             AND,
@@ -60,15 +59,12 @@ namespace IMDEV.OpenERP.models.query
         {
             int nbCond = 0;
             foreach (object r in _listeParametre)
-            {
                 if ((r.GetType() == typeof(string)))
-                {
-                    if ((((string)r == OPERATEUR_ET)
-                                || (((string)r == OPERATEUR_OU)
-                                || ((string)r == OPERATEUR_NON))))
+                    if (((string)r == OPERATEUR_ET)
+                                || ((string)r == OPERATEUR_OU)
+                                || ((string)r == OPERATEUR_NON))
                         nbCond++;
-                }
-            }
+
             return nbCond;
         }
 
@@ -80,9 +76,7 @@ namespace IMDEV.OpenERP.models.query
         public bool checkSearchQuery()
         {
             for (int i = 0; (i <= (_listeParametre.Count - 2)); i++)
-            {
                 if ((_listeParametre[i].GetType() == typeof(string)))
-                {
                     if ((((string)_listeParametre[i] == OPERATEUR_ET)
                                 || (((string)_listeParametre[i] == OPERATEUR_OU)
                                 || ((string)_listeParametre[i] == OPERATEUR_NON)))
@@ -90,18 +84,16 @@ namespace IMDEV.OpenERP.models.query
                                 || (((string)_listeParametre[(i + 1)] == OPERATEUR_OU)
                                 || ((string)_listeParametre[(i + 1)] == OPERATEUR_NON))))
                         return false;
-                }
-            }
+
             if (nbCond() > 0)
             {
                 if (((_listeParametre.Count - nbCond()) / 3) != (nbCond() + 1))
                     return false;
             }
             else
-            {
                 if (_listeParametre.Count > 3)
                     return false;
-            }
+
             return true;
         }
         /// <summary>
@@ -141,33 +133,27 @@ namespace IMDEV.OpenERP.models.query
             bool unChangement = true;
             while ((_listeParametre[(_listeParametre.Count - 1)].GetType() == typeof(string))
                         && (((string)_listeParametre[(_listeParametre.Count - 1)] == OPERATEUR_ET)
-                        || (((string)_listeParametre[(_listeParametre.Count - 1)] == OPERATEUR_NON)
-                        || ((string)_listeParametre[(_listeParametre.Count - 1)] == OPERATEUR_OU))))
-            {
+                        || ((string)_listeParametre[(_listeParametre.Count - 1)] == OPERATEUR_NON)
+                        || ((string)_listeParametre[(_listeParametre.Count - 1)] == OPERATEUR_OU)))
                 _listeParametre.RemoveAt((_listeParametre.Count - 1));
-            }
+
             //  on enleve les operateurs qui sont en double (l'un à coté de l'autre)
             while (unChangement)
             {
                 unChangement = false;
                 for (int i = 0; (i <= (_listeParametre.Count - 2)); i++)
-                {
-                    if (((_listeParametre[i].GetType() == typeof(string))
-                                && (_listeParametre[(i + 1)].GetType() == typeof(string))))
-                    {
+                    if ((_listeParametre[i].GetType() == typeof(string)) && (_listeParametre[(i + 1)].GetType() == typeof(string)))
                         if ((((string)_listeParametre[i] == OPERATEUR_ET)
-                                    || (((string)_listeParametre[i] == OPERATEUR_NON)
-                                    || ((string)_listeParametre[i] == OPERATEUR_OU)))
+                                    || ((string)_listeParametre[i] == OPERATEUR_NON)
+                                    || ((string)_listeParametre[i] == OPERATEUR_OU))
                                     && (((string)_listeParametre[(i + 1)] == OPERATEUR_ET)
-                                    || (((string)_listeParametre[(i + 1)] == OPERATEUR_NON)
-                                    || ((string)_listeParametre[(i + 1)] == OPERATEUR_OU))))
+                                    || ((string)_listeParametre[(i + 1)] == OPERATEUR_NON)
+                                    || ((string)_listeParametre[(i + 1)] == OPERATEUR_OU)))
                         {
-                            _listeParametre.RemoveAt((i + 1));
+                            _listeParametre.RemoveAt(i + 1);
                             unChangement = true;
                             break;
                         }
-                    }
-                }
             }
         }
 
@@ -201,10 +187,10 @@ namespace IMDEV.OpenERP.models.query
             lastOperator = "";
             for (int i = 0; (i <= (_listeParametre.Count - 1)); i++)
             {
-                if (((_listeParametre[i].GetType() == typeof(string))
+                if ((_listeParametre[i].GetType() == typeof(string))
                             && (((string)_listeParametre[i] == OPERATEUR_ET)
-                            || (((string)_listeParametre[i] == OPERATEUR_OU)
-                            || ((string)_listeParametre[i] == OPERATEUR_NON)))))
+                            || ((string)_listeParametre[i] == OPERATEUR_OU)
+                            || ((string)_listeParametre[i] == OPERATEUR_NON)))
                 {
                     lastOperator = (string)_listeParametre[i];
                     if ((lastIndex == numCond))

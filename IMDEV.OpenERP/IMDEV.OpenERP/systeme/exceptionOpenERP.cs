@@ -48,13 +48,9 @@ namespace IMDEV.OpenERP.Systeme
             get
             {
                 if (_numError != ERRORS.NC)
-                {
                     return (IMDEV.OpenERP.Properties.Resources.ResourceManager.GetString(_numError.ToString(), System.Threading.Thread.CurrentThread.CurrentCulture) + ((_more != "") ? ("\r\n" + _more) : ""));
-                }
                 else
-                {
                     return base.Message;
-                }
             }
         }
     }

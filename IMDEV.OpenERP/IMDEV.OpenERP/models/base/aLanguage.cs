@@ -5,12 +5,12 @@ using System.Text;
 
 namespace IMDEV.OpenERP.models.@base
 {
-    
-    public class aLanguage : aKey {
-        
+    public class aLanguage : aKey
+    {
         private string _id;
         
-        public new string id {
+        public new string id
+        {
             get { return _id; }
             set { _id = value; }
         }

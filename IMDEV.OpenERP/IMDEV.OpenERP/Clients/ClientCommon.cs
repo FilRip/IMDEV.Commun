@@ -31,9 +31,7 @@ namespace IMDEV.OpenERP.Clients
             _config.host = serverAddress;
             _config.port = portTCP;
             if ((login != ""))
-            {
                 connectionData(db, login, pass);
-            }
         }
 
         /// <summary>
@@ -44,10 +42,7 @@ namespace IMDEV.OpenERP.Clients
         /// <remarks></remarks>
         public bool isConnected
         {
-            get
-            {
-                return (_config.userId >= 0);
-            }
+            get { return (_config.userId >= 0); }
         }
 
         /// <summary>
@@ -153,11 +148,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -210,11 +202,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             return "";
         }
@@ -263,11 +252,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {

@@ -6,7 +6,6 @@ using System.Collections;
 
 namespace IMDEV.OpenERP.models.fields.relations
 {
-
     public class manyToOne
     {
         protected ArrayList _liste;
@@ -66,49 +65,40 @@ namespace IMDEV.OpenERP.models.fields.relations
         public virtual void setValue(int id)
         {
             if (_liste != null)
-            {
                 _liste.Clear();
-            }
+
             _liste = new ArrayList();
             if ((id > 0))
-            {
                 _liste.Add(id);
-            }
             else
-            {
                 _liste.Add(false);
-            }
+
             _isOrder = true;
         }
 
         public object toXmlRpc()
         {
             if (!_isOrder)
-            {
                 return null;
-            }
+
             return _liste[0];
         }
 
         public virtual void copyData(Array source)
         {
             if (_liste != null)
-            {
                 _liste.Clear();
-            }
+
             _liste = new ArrayList();
             foreach (object Val in source)
-            {
                 _liste.Add(Val);
-            }
         }
 
         public void copyData(int id)
         {
             if (_liste != null)
-            {
                 _liste.Clear();
-            }
+
             _liste = new ArrayList();
             _liste.Add(id);
         }

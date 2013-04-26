@@ -63,11 +63,10 @@ namespace IMDEV.OpenERP.Clients
             {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
             }
-            if (((objectType == null)
-                        && (objectName == "")))
-            {
+            if ((objectType == null)
+                        && (objectName == ""))
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.ERR_NOMTYPE_OBJET_OPENERP);
-            }
+
             try
             {
                 if (objectType != null)
@@ -76,23 +75,16 @@ namespace IMDEV.OpenERP.Clients
                     nomRessource = classeInstanciee.resource_name();
                 }
                 else
-                {
                     nomRessource = objectName;
-                }
+
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                if ((listeChamps == null))
-                {
+                if (listeChamps == null)
                     listeChamps = new List<String>();
-                }
-                if ((context == null))
-                {
+                if (context == null)
                     retour = conn.executeTwoParam(_config.database, _config.userId, _config.password, nomRessource, "read", query.toXmlRpc, listeChamps.ToArray());
-                }
                 else
-                {
                     retour = conn.executeThreeParam(_config.database, _config.userId, _config.password, nomRessource, "read", query.toXmlRpc, listeChamps.ToArray(), context.toArray());
-                }
                 if (retour != null)
                 {
                     listeRetour = new List<Object>();
@@ -100,13 +92,9 @@ namespace IMDEV.OpenERP.Clients
                                 <= (((System.Array)(retour)).GetLength(0) - 1)); i++)
                     {
                         if (objectType != null)
-                        {
                             obj = ((models.@base.anOpenERPObject)(Activator.CreateInstance(objectType)));
-                        }
                         else
-                        {
                             obj = new models.@base.aGenericObject(nomRessource);
-                        }
                         obj.copyData((XmlRpcStruct)(((object[])(retour))[i]));
                         listeRetour.Add(obj);
                     }
@@ -114,8 +102,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
+                if ((_config.reportXmlRpcError)
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))
                 {
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
                 }
@@ -250,18 +238,15 @@ namespace IMDEV.OpenERP.Clients
             string nomRessource = "";
             models.query.aQuery req = null;
             if (!isConnected)
-            {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            }
-            if (((objectType == null)
-                        && (objectName == "")))
-            {
+
+            if ((objectType == null)
+                        && (objectName == ""))
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.ERR_NOMTYPE_OBJET_OPENERP);
-            }
-            if ((!loadObject && listeChamps != null))
-            {
+            
+            if (!loadObject && listeChamps != null)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM);
-            }
+
             try
             {
                 if (objectType != null)
@@ -270,12 +255,11 @@ namespace IMDEV.OpenERP.Clients
                     nomRessource = classeInstanciee.resource_name();
                 }
                 else
-                {
                     nomRessource = objectName;
-                }
+
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                if ((query == null))
+                if (query == null)
                 {
                     List<int> dummyReq = new List<int>();
                     retour = conn.recherche(_config.database, _config.userId, _config.password, nomRessource, "search", dummyReq.ToArray(), offset, limit);
@@ -292,24 +276,22 @@ namespace IMDEV.OpenERP.Clients
                     {
                         if (loadObject)
                         {
-                            if ((req == null))
+                            if (req == null)
                                 req = new models.query.aQuery();
                             req.addParameter(rT.GetValue(i));
                         }
                         else
                             listeRetour.Add(rT.GetValue(i));
                     }
-                    if ((loadObject && req != null))
+                    if (loadObject && req != null)
                         return readData(req, objectType, objectName, listeChamps, context);
                 }
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError)
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -385,11 +367,9 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError)
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
                 conn = null;
             }
             return 0;
@@ -433,9 +413,8 @@ namespace IMDEV.OpenERP.Clients
         public int insert(models.@base.anOpenERPObject objectToInsert, models.@base.listProperties complementInfo)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return insertData(objectToInsert, complementInfo);
         }
 
@@ -451,10 +430,9 @@ namespace IMDEV.OpenERP.Clients
             CookComputing.XmlRpc.XmlRpcStruct valeurs;
             if (!isConnected)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            if ((objectToInsert == null))
-            {
+            if (objectToInsert == null)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM);
-            }
+
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
@@ -462,7 +440,7 @@ namespace IMDEV.OpenERP.Clients
                 valeurs = objectToInsert.toXmlRpc(false);
                 if (valeurs.Contains("id"))
                     valeurs.Remove("id");
-                if ((complementInfo == null))
+                if (complementInfo == null)
                     retour = conn.execute(_config.database, _config.userId, _config.password, nomRessource, "create", valeurs);
                 else
                     retour = conn.executeTwoParam(_config.database, _config.userId, _config.password, nomRessource, "create", valeurs, complementInfo.toArray());
@@ -470,11 +448,9 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError)
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -598,17 +574,15 @@ namespace IMDEV.OpenERP.Clients
             models.@base.anOpenERPObject classeInstanciee;
             if (!isConnected)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            if (((objectType == null)
-                        && ((objectName == "")
-                        && (objectToDelete == null))))
-            {
+            if ((objectType == null)
+                        && (objectName == "")
+                        && (objectToDelete == null))
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.ERR_NOMTYPE_OBJET_OPENERP);
-            }
-            if (((query == null)
-                        && (objectToDelete == null)))
-            {
+
+            if ((query == null)
+                        && (objectToDelete == null))
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "query ne peut pas �tre vide si \'objet\' est vide �galement");
-            }
+
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
@@ -632,11 +606,9 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError)
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -745,11 +717,9 @@ namespace IMDEV.OpenERP.Clients
             models.@base.anOpenERPObject classeInstanciee = null;
             classeInstanciee = ((models.@base.anOpenERPObject)(Activator.CreateInstance(objectType)));
             classeInstanciee.listProperties = listeChamps;
-            if (((id > 0)
-                        && !classeInstanciee.listProperties.Contains("id")))
-            {
+            if ((id > 0) && !classeInstanciee.listProperties.Contains("id"))
                 classeInstanciee.listProperties.add("id", id);
-            }
+
             return updateData(classeInstanciee, context);
         }
 
@@ -763,21 +733,19 @@ namespace IMDEV.OpenERP.Clients
             Interfaces.IObject conn;
             List<int> listeId = new List<int>();
             CookComputing.XmlRpc.XmlRpcStruct valeurs;
-            if ((objectToUpdate == null))
-            {
+            if (objectToUpdate == null)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "classe est vide, op�ration impossible.");
-            }
+
             if (!isConnected)
-            {
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
-            }
+
             try
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
                 valeurs = objectToUpdate.toXmlRpc(false);
                 listeId.Add((int)objectToUpdate.listProperties.value("id"));
-                if ((complement == null))
+                if (complement == null)
                     retour = conn.executeTwoParam(_config.database, _config.userId, _config.password, objectToUpdate.resource_name(), "write", listeId.ToArray(), valeurs);
                 else
                     retour = conn.executeThreeParam(_config.database, _config.userId, _config.password, objectToUpdate.resource_name(), "write", listeId.ToArray(), valeurs, complement.toArray());
@@ -785,11 +753,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -838,7 +803,7 @@ namespace IMDEV.OpenERP.Clients
         {
             models.@base.aGenericObject objectToUpdate = new models.@base.aGenericObject(objectName);
             objectToUpdate.listProperties = listeChamps;
-            if ((id > 0))
+            if (id > 0)
                 objectToUpdate.listProperties.add("id", id);
             updateAsync(objectToUpdate, callBack, complement, prioritaire);
         }
@@ -879,7 +844,7 @@ namespace IMDEV.OpenERP.Clients
 
         private bool updateMultipleData(List<models.@base.anOpenERPObject> objectsToUpdate, models.@base.listProperties complement)
         {
-            if ((objectsToUpdate == null))
+            if (objectsToUpdate == null)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "Ne peut être vide");
             foreach (models.@base.anOpenERPObject objet in objectsToUpdate)
                 if (!update(objet, complement))
@@ -942,8 +907,7 @@ namespace IMDEV.OpenERP.Clients
                 if (retour != null)
                 {
                     ret = new List<models.@base.aKey>();
-                    for (int i = 0; (i
-                                <= (retour.GetLength(0) - 1)); i++)
+                    for (int i = 0; (i <= (retour.GetLength(0) - 1)); i++)
                     {
                         cle = new models.@base.aKey();
                         cle.id = (int)((System.Array)(retour.GetValue(i))).GetValue(0);
@@ -954,11 +918,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -1042,11 +1003,11 @@ namespace IMDEV.OpenERP.Clients
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                if (((lang == "") && (_config.defaultLanguage == "")))
+                if ((lang == "") && (_config.defaultLanguage == ""))
                     retour = (XmlRpcStruct)conn.executeWithoutParam(_config.database, _config.userId, _config.password, resourceName, "fields_get");
                 else
                 {
-                    if ((lang == ""))
+                    if (lang == "")
                         lang = _config.defaultLanguage;
                     param.Add("department_id", department_id);
                     param.Add("lang", lang);
@@ -1137,7 +1098,7 @@ namespace IMDEV.OpenERP.Clients
             Interfaces.IObject conn;
             Array retour;
             XmlRpcStruct secondParam = new XmlRpcStruct();
-            if (((lang == "") && (_config.defaultLanguage == "")))
+            if ((lang == "") && (_config.defaultLanguage == ""))
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "default language not set");
             if (!isConnected)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
@@ -1145,7 +1106,7 @@ namespace IMDEV.OpenERP.Clients
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                if ((lang == ""))
+                if (lang == "")
                     lang = _config.defaultLanguage;
                 secondParam.Add("lang", lang);
                 secondParam.Add("section_id", section_id);
@@ -1155,11 +1116,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -1245,11 +1203,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -1276,7 +1231,7 @@ namespace IMDEV.OpenERP.Clients
             if (!isConnected)
                 throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
 
-            if ((listeChamps == null))
+            if (listeChamps == null)
             {
                 listeChamps = new List<String>();
                 listeChamps.Add("code");

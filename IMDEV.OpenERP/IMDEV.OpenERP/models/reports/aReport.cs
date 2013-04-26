@@ -7,9 +7,7 @@ namespace IMDEV.OpenERP.models.reports
 {
     public class aReport : models.@base.aFile
     {
-
         private bool _etat;
-
         private string _format;
 
         /// <summary>

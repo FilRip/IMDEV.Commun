@@ -6,7 +6,6 @@ using System.Collections;
 
 namespace IMDEV.OpenERP.models.fields
 {
-
     public class texteMultilangue
     {
         public enum COMMON_LANGUAGE
@@ -73,7 +72,7 @@ namespace IMDEV.OpenERP.models.fields
         /// <remarks></remarks>
         public void setChaine(string langue, string valeur)
         {
-            if (((string)_listeChaines[langue] != valeur))
+            if ((string)_listeChaines[langue] != valeur)
             {
                 _listeChaines[langue] = valeur;
                 _changed[langue] = true;
@@ -101,9 +100,8 @@ namespace IMDEV.OpenERP.models.fields
         public bool chargeLangues(IMDEV.OpenERP.Clients.clientOpenERP clientOpenERP, List<models.common.res_lang> listeLangue)
         {
             if (clientOpenERP.checkIfBusy())
-            {
                 return false;
-            }
+
             return chargeLanguesData(clientOpenERP, listeLangue);
         }
 
@@ -138,9 +136,7 @@ namespace IMDEV.OpenERP.models.fields
                 param.Add("listeLangue", listeLangue);
                 bg.RunWorkerAsync(param);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         /// <summary>
@@ -237,10 +233,8 @@ namespace IMDEV.OpenERP.models.fields
                 if (listeLangue == null)
                 {
                     listeLangue = clientOpenERP.translatableLang();
-                    if ((listeLangue == null))
-                    {
+                    if (listeLangue == null)
                         throw new Systeme.exceptionOpenERP(IMDEV.OpenERP.Systeme.exceptionOpenERP.ERRORS.NO_LANGUAGE);
-                    }
                 }
                 foreach (models.common.res_lang lang in listeLangue)
                 {
@@ -342,12 +336,9 @@ namespace IMDEV.OpenERP.models.fields
             try
             {
                 foreach (string codeLangue in _listeChaines.Keys)
-                {
                     if (!sauveLangue(proprieteConnexion, codeLangue))
-                    {
                         throw new Exception("sauveLangue return False");
-                    }
-                }
+
                 return true;
             }
             catch (Exception ex)
@@ -361,12 +352,9 @@ namespace IMDEV.OpenERP.models.fields
             try
             {
                 foreach (string codeLangue in _listeChaines.Keys)
-                {
                     if (!sauveLangue(clientOpenERP, codeLangue))
-                    {
                         throw new Exception("sauveLangue return False");
-                    }
-                }
+
                 return true;
             }
             catch (Exception ex)
@@ -384,9 +372,8 @@ namespace IMDEV.OpenERP.models.fields
         public bool sauveLangue(IMDEV.OpenERP.models.@base.connectionProperties proprieteConnexion, string codeLangue)
         {
             if (!_changed.ContainsKey(codeLangue))
-            {
                 return false;
-            }
+
             string libelle;
             IMDEV.OpenERP.Clients.clientOpenERP conn;
             bool retour;
@@ -402,9 +389,8 @@ namespace IMDEV.OpenERP.models.fields
                 context.add("lang", codeLangue);
                 retour = conn.update(fields, _classeParente.GetType(), (int)_classeParente.listProperties.value("id", IMDEV.OpenERP.models.@base.aField.FIELD_TYPE.INTEGER), context);
                 if (!retour)
-                {
                     throw new Exception("Update return False");
-                }
+
                 _changed[codeLangue] = false;
             }
             return true;
@@ -419,9 +405,8 @@ namespace IMDEV.OpenERP.models.fields
         public bool sauveLangue(Clients.clientOpenERP clientOpenERP, string codeLangue)
         {
             if (!_changed.ContainsKey(codeLangue))
-            {
                 return false;
-            }
+
             string libelle;
             bool retour;
             IMDEV.OpenERP.models.@base.listProperties context;
@@ -435,9 +420,8 @@ namespace IMDEV.OpenERP.models.fields
                 context.add("lang", codeLangue);
                 retour = clientOpenERP.update(fields, _classeParente.GetType(), (int)(_classeParente.listProperties.value("id", IMDEV.OpenERP.models.@base.aField.FIELD_TYPE.INTEGER)), context);
                 if (!retour)
-                {
                     throw new Exception("Update return False");
-                }
+
                 _changed[codeLangue] = false;
             }
             return true;

@@ -30,59 +30,32 @@ namespace IMDEV.OpenERP.models.@base
         }
 
         private string _name = "";
-
         private FIELD_TYPE _type = FIELD_TYPE.NC;
-
         private string _help = "";
-
         private string _desc = "";
-
         private bool _selectable;
-
         private ArrayList _digit = new ArrayList();
-
         private int _size;
-
         private bool _readOnly;
-
         private bool _required;
-
         private List<Object> _domain = new List<Object>();
-
         private Hashtable _context = new Hashtable();
-
         private bool _change_default;
-
         private string _relation = "";
-
         private bool _store;
-
         private string _functionStore = "";
-
         private bool _translate;
-
         private Hashtable _selection = new Hashtable();
-
         private int _select;
-
         private ArrayList _relatedColumns = new ArrayList();
-
         private string _thirdTable = "";
-
         private ArrayList _states = new ArrayList();
-
         private ArrayList _fnct_search = new ArrayList();
-
         private ArrayList _fnct_inv_arg = new ArrayList();
-
         private ArrayList _fnct_method = new ArrayList();
-
         private ArrayList _fnct_inv = new ArrayList();
-
         private ArrayList _fnct_obj = new ArrayList();
-
         private string _function = "";
-
         private bool _invisible;
 
         public string Function
@@ -246,9 +219,7 @@ namespace IMDEV.OpenERP.models.@base
                         case "context":
                             boucle2 = ((CookComputing.XmlRpc.XmlRpcStruct)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                             while (boucle2.MoveNext())
-                            {
                                 _context.Add((string)((DictionaryEntry)(boucle.Current)).Key, ((DictionaryEntry)(boucle.Current)).Value);
-                            }
                             break;
                         case "relation":
                             _relation = (string)((DictionaryEntry)(boucle.Current)).Value;
@@ -328,20 +299,14 @@ namespace IMDEV.OpenERP.models.@base
                             break;
                         case "store":
                             if ((((DictionaryEntry)(boucle.Current)).Value.GetType() != typeof(bool)))
-                            {
                                 _functionStore = (string)((DictionaryEntry)(boucle.Current)).Value;
-                            }
                             else
-                            {
                                 _store = (bool)((DictionaryEntry)(boucle.Current)).Value;
-                            }
                             break;
                         case "digits":
                             boucle2 = ((System.Array)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                             while (boucle2.MoveNext())
-                            {
                                 _digit.Add(boucle2.Current);
-                            }
                             break;
                         case "size":
                             _size = (int)((DictionaryEntry)(boucle.Current)).Value;
@@ -366,9 +331,7 @@ namespace IMDEV.OpenERP.models.@base
                         case "selection":
                             boucle2 = ((System.Array)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                             while (boucle2.MoveNext())
-                            {
                                 _selection.Add(((System.Array)(boucle2.Current)).GetValue(0), ((System.Array)(boucle2.Current)).GetValue(1));
-                            }
                             break;
                         case "translate":
                             _translate = (bool)((DictionaryEntry)(boucle.Current)).Value;
@@ -385,9 +348,7 @@ namespace IMDEV.OpenERP.models.@base
                         case "related_columns":
                             boucle2 = ((System.Array)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                             while (boucle2.MoveNext())
-                            {
                                 _relatedColumns.Add(boucle2.Current);
-                            }
                             break;
                         case "third_table":
                             _thirdTable = (string)((DictionaryEntry)(boucle.Current)).Value;
@@ -399,17 +360,13 @@ namespace IMDEV.OpenERP.models.@base
                             {
                                 boucle2 = ((System.Array)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                                 while (boucle2.MoveNext())
-                                {
                                     _domain.Add(boucle2.Current);
-                                }
                             }
                             break;
                         case "states":
                             boucle2 = ((CookComputing.XmlRpc.XmlRpcStruct)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                             while (boucle2.MoveNext())
-                            {
                                 _states.Add(boucle2.Current);
-                            }
                             break;
                         case "invisible":
                             _invisible = (bool)((DictionaryEntry)(boucle.Current)).Value;
@@ -432,16 +389,12 @@ namespace IMDEV.OpenERP.models.@base
             if (donnees.GetType() != typeof(bool))
             {
                 if ((donnees.GetType() == typeof(string)))
-                {
                     local.Add(donnees);
-                }
                 else
                 {
                     boucle2 = ((System.Array)(donnees)).GetEnumerator();
                     while (boucle2.MoveNext())
-                    {
                         local.Add(boucle2.Current);
-                    }
                 }
             }
         }

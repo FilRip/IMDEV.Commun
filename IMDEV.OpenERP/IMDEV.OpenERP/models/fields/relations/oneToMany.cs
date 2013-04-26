@@ -83,9 +83,9 @@ namespace IMDEV.OpenERP.models.fields.relations
         public void delLinkAndObj(int id)
         {
             ArrayList ordre;
-            if (orderExist(ORDERS.DEL_LINK_AND_OBJ, id)) {
+            if (orderExist(ORDERS.DEL_LINK_AND_OBJ, id))
                 return;
-            }
+
             ordre = createOrder(ORDERS.DEL_LINK_AND_OBJ);
             ordre.Add(id);
         }
@@ -123,10 +123,9 @@ namespace IMDEV.OpenERP.models.fields.relations
         protected bool orderExist(ORDERS numOrdre, int id)
         {
             foreach (ArrayList ordrePresent in listOrder(numOrdre))
-            {
-                if (((int)ordrePresent[1] == id))
+                if ((int)ordrePresent[1] == id)
                     return true;
-            }
+
             return false;
         }
         
@@ -137,15 +136,10 @@ namespace IMDEV.OpenERP.models.fields.relations
         protected ArrayList getOrder(ORDERS numOrdre, int complement)
         {
             foreach (ArrayList ordre in _listeOrdres)
-            {
                 if (((int)ordre[0] == (int)numOrdre))
-                {
                     if (((complement == 0) || ((int)ordre[1] == complement)))
-                    {
                         return ordre;
-                    }
-                }
-            }
+
             return createOrder(numOrdre);
         }
 
@@ -153,10 +147,9 @@ namespace IMDEV.OpenERP.models.fields.relations
         {
             ArrayList retour = new ArrayList();
             foreach (ArrayList ordre in _listeOrdres)
-            {
                 if (((int)ordre[0] == (int)numOrdre))
                     retour.Add(ordre);
-            }
+
             return retour;
         }
 
@@ -172,9 +165,7 @@ namespace IMDEV.OpenERP.models.fields.relations
             if ((_listeOrdres.Count > 0))
             {
                 foreach (ArrayList obj in _listeOrdres)
-                {
                     sortie.Add(obj.ToArray());
-                }
                 return sortie.ToArray();
             }
             return null;
@@ -198,18 +189,11 @@ namespace IMDEV.OpenERP.models.fields.relations
         public bool isInList(int id)
         {
             if (_liste!=null)
-            {
                 foreach (object idin in _liste)
-                {
                     if ((idin.GetType() == typeof(int)))
-                    {
                         if ((int)idin == id)
-                        {
                             return true;
-                        }
-                    }
-                }
-            }
+
             return false;
         }
     }

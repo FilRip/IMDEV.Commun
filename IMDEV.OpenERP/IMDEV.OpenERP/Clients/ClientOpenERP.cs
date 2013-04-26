@@ -35,9 +35,7 @@ namespace IMDEV.OpenERP.Clients
             _config.port = portTCP;
             _config.database = db;
             if ((user != ""))
-            {
                 connectionData(db, user, pass);
-            }
         }
 
         public clientOpenERP(models.@base.connectionProperties config)
@@ -55,9 +53,8 @@ namespace IMDEV.OpenERP.Clients
         public int nbFileAttachment(string resourceName, int id)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return searchCount(buildQueryAttachment(resourceName, id), NOM_ATTACHMENT);
         }
 
@@ -103,9 +100,8 @@ namespace IMDEV.OpenERP.Clients
         public int addFileAttachment(string resourceName, int id, string filename, string libelle)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return addFileAttachmentData(resourceName, id, filename, libelle);
         }
 
@@ -115,19 +111,17 @@ namespace IMDEV.OpenERP.Clients
             models.@base.aGenericObject obj = new models.@base.aGenericObject(NOM_ATTACHMENT);
             models.@base.listProperties comp = new models.@base.listProperties();
             byte octet;
-            if (((resourceName == "")
-                        || ((id <= 0)
-                        || (filename == ""))))
-            {
+            if ((resourceName == "")
+                        || (id <= 0)
+                        || (filename == ""))
                 throw new ArgumentNullException();
-            }
-            if ((libelle == ""))
-            {
+
+            if (libelle == "")
                 libelle = System.IO.Path.GetFileNameWithoutExtension(filename);
-            }
+
             System.IO.FileStream f = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
             System.IO.MemoryStream donnees = new System.IO.MemoryStream((int)f.Length);
-            while ((f.Position < f.Length))
+            while (f.Position < f.Length)
             {
                 octet = (byte)f.ReadByte();
                 donnees.WriteByte(octet);
@@ -197,9 +191,8 @@ namespace IMDEV.OpenERP.Clients
         public int copy(string resourceName, int id, models.@base.listProperties valeurs)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return copyData(resourceName, id, valeurs);
         }
 
@@ -212,22 +205,15 @@ namespace IMDEV.OpenERP.Clients
             {
                 conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
                 conn.Url = url(SERVICE_XMLRPC.@object);
-                if ((valeurs == null))
-                {
+                if (valeurs == null)
                     retour = (int)conn.execute(_config.database, _config.userId, _config.password, resourceName, "copy", id);
-                }
                 else
-                {
                     retour = (int)conn.executeTwoParam(_config.database, _config.userId, _config.password, resourceName, "copy", id, valeurs.toArray());
-                }
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -281,9 +267,8 @@ namespace IMDEV.OpenERP.Clients
         public bool checkRecursion(string resourceName, int id)
         {
             if (checkIfBusy())
-            {
                 return false;
-            }
+
             ArrayList listId = new ArrayList();
             listId.Add(id);
             return checkRecursionData(resourceName, listId);
@@ -299,9 +284,8 @@ namespace IMDEV.OpenERP.Clients
         public bool checkRecursion(string resourceName, ArrayList listId)
         {
             if (checkIfBusy())
-            {
                 return false;
-            }
+
             return checkRecursionData(resourceName, listId);
         }
 
@@ -318,11 +302,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -394,9 +375,8 @@ namespace IMDEV.OpenERP.Clients
         public models.@base.listProperties defaultGet(string resourceName, List<string> listeChamps)
         {
             if (checkIfBusy())
-            {
                 return null;
-            }
+
             return defaultGetData(resourceName, listeChamps);
         }
 
@@ -415,11 +395,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -464,9 +441,8 @@ namespace IMDEV.OpenERP.Clients
         public List<models.@base.listProperties> exportData(string resourceName, List<int> listId, List<string> listFields)
         {
             if (checkIfBusy())
-            {
                 return null;
-            }
+
             return exportDataData(resourceName, listId, listFields);
         }
 
@@ -501,11 +477,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -560,11 +533,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -583,9 +553,8 @@ namespace IMDEV.OpenERP.Clients
         public List<models.@base.listProperties> fieldsGet(string resourceName, List<string> listFields)
         {
             if (checkIfBusy())
-            {
                 return null;
-            }
+
             return fieldsGetData(resourceName, listFields);
         }
 
@@ -608,20 +577,15 @@ namespace IMDEV.OpenERP.Clients
                     b2 = ((Array)(((DictionaryEntry)(boucle.Current)).Value)).GetEnumerator();
                     list = new models.@base.listProperties();
                     while (b2.MoveNext())
-                    {
                         list.add((string)((DictionaryEntry)(b2.Current)).Key, ((DictionaryEntry)(b2.Current)).Value);
-                    }
                     ret.Add(list);
                 }
                 return ret;
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -665,9 +629,8 @@ namespace IMDEV.OpenERP.Clients
         public models.@base.listProperties fieldsViewGet(string resourceName, int viewId, string viewType, IMDEV.OpenERP.models.@base.listProperties context)
         {
             if (checkIfBusy())
-            {
                 return null;
-            }
+
             return fieldsViewGetData(resourceName, viewId, viewType, context);
         }
 
@@ -686,11 +649,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {
@@ -742,9 +702,8 @@ namespace IMDEV.OpenERP.Clients
         public int importData(string resourceName, List<string> listFields, models.@base.listProperties datas, string mode)
         {
             if (checkIfBusy())
-            {
                 return 0;
-            }
+
             return importDataData(resourceName, listFields, datas, mode);
         }
 
@@ -761,11 +720,8 @@ namespace IMDEV.OpenERP.Clients
             }
             catch (Exception ex)
             {
-                if ((_config.reportXmlRpcError
-                            && (ex.GetType() == typeof(XmlRpcFaultException))))
-                {
+                if ((_config.reportXmlRpcError) && (ex.GetType() == typeof(XmlRpcFaultException)))
                     throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
-                }
             }
             finally
             {

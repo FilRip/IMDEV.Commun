@@ -49,19 +49,16 @@ namespace IMDEV.OpenERP.models.@base {
 
             if (this[champs].GetType() == typeof(bool))
             {
-                if ((typeChamps == aField.FIELD_TYPE.TEXT)
-                            || (typeChamps == aField.FIELD_TYPE.CHAR))
+                if ((typeChamps == aField.FIELD_TYPE.TEXT) || (typeChamps == aField.FIELD_TYPE.CHAR))
                     return "";
                 else if (typeChamps == aField.FIELD_TYPE.FLOAT)
                     return (double)0.0;
                 else if (typeChamps == aField.FIELD_TYPE.INTEGER)
                     return 0;
-                else if ((typeChamps == aField.FIELD_TYPE.DATE)
-                            || (typeChamps == aField.FIELD_TYPE.DATETIME))
+                else if ((typeChamps == aField.FIELD_TYPE.DATE) || (typeChamps == aField.FIELD_TYPE.DATETIME))
                     return null;
             }
-            else if (((typeChamps == aField.FIELD_TYPE.DATE)
-                    || (typeChamps == aField.FIELD_TYPE.DATETIME))
+            else if (((typeChamps == aField.FIELD_TYPE.DATE) || (typeChamps == aField.FIELD_TYPE.DATETIME))
                     && (this[champs].GetType() == typeof(string)))
             {
                 try
@@ -101,56 +98,52 @@ namespace IMDEV.OpenERP.models.@base {
                                 + ((DateTime)(valeur)).Minute.ToString() + ":" + ((DateTime)(valeur)).Second.ToString();
             }
             else
-            {
                 this[champs] = valeur;
-            }
         }
         
         public void add(string champs, object valeur) {
-            if (isKeyExist(champs)) {
-                throw new Exception(("Key " 
-                                + (champs + " in listproperties already exist")));
-            }
+            if (isKeyExist(champs))
+                throw new Exception(("Key " + (champs + " in listproperties already exist")));
+
             base.Add(champs, valeur);
         }
         
         /// <summary>
-        /// Retourne oui ou non si une propri�t� existe dans cette liste
+        /// Retourne oui ou non si une propriété existe dans cette liste
         /// </summary>
-        /// <param name="keyName">Nom de la propri�t�</param>
+        /// <param name="keyName">Nom de la propriété</param>
         /// <returns>Vrai ou Faux</returns>
         /// <remarks></remarks>
-        public bool isKeyExist(string keyName) {
-            foreach (string key in Keys) {
-                if ((key == keyName)) {
+        public bool isKeyExist(string keyName)
+        {
+            foreach (string key in Keys)
+                if ((key == keyName))
                     return true;
-                }
-            }
+
             return false;
         }
         
         /// <summary>
-        /// Retourne la liste des propri�t�s en flux xmlrpc
+        /// Retourne la liste des propriété en flux xmlrpc
         /// </summary>
         /// <param name="withId">Avec ou sans le champs "id" ?</param>
-        /// <returns>Un objet XmlRpcStruct � int�grer dans une requ�te xmlrpc</returns>
+        /// <returns>Un objet XmlRpcStruct à intégrer dans une requête xmlrpc</returns>
         /// <remarks></remarks>
         public CookComputing.XmlRpc.XmlRpcStruct toArray()
         {
             return toArray(false);
         }
-        public CookComputing.XmlRpc.XmlRpcStruct toArray(bool withId) {
+        public CookComputing.XmlRpc.XmlRpcStruct toArray(bool withId)
+        {
             CookComputing.XmlRpc.XmlRpcStruct temp = new CookComputing.XmlRpc.XmlRpcStruct();
-            // Warning!!! Optional parameters not supported
-            foreach (string key in Keys) {
-                if (((key != "id") 
-                            || withId)) {
-                    if ((this[key] == null)) {
+            foreach (string key in Keys)
+            {
+                if ((key != "id") || (withId))
+                {
+                    if ((this[key] == null))
                         temp.Add(key, false);
-                    }
-                    else {
+                    else
                         temp.Add(key, this[key]);
-                    }
                 }
             }
             return temp;
@@ -164,14 +157,10 @@ namespace IMDEV.OpenERP.models.@base {
         /// <remarks></remarks>
         public ArrayList getList(string champs)
         {
-            if (((this[champs] == null)
-                        || (this[champs].GetType() == typeof(bool))))
-            {
+            if ((this[champs] == null) || (this[champs].GetType() == typeof(bool)))
                 this[champs] = new ArrayList();
-            }
             else if ((this[champs].GetType() != typeof(System.Array)) && this[champs].GetType() != typeof(ArrayList))
             {
-
                 object obj;
                 obj = this[champs];
                 this[champs] = new ArrayList();
@@ -181,21 +170,20 @@ namespace IMDEV.OpenERP.models.@base {
         }
         
         /// <summary>
-        /// Retourne si "oui" ou "non" cette propri�t� est une liste
+        /// Retourne si "oui" ou "non" cette prorpiété est une liste
         /// </summary>
-        /// <param name="champs">Nom de la propri�t�</param>
+        /// <param name="champs">Nom de la propriété</param>
         /// <returns>Vrai ou Faux</returns>
         /// <remarks></remarks>
         public bool isList(string champs)
         {
-            //  TODO : A court terme, normalement, il n'y a plus de list dans les listProperties, �tant donn� que maintenant les champs relationnels sont g�r� autrement
-            //  donc ces tests doivent etre supprim�s...
-            return ((this[champs].GetType() == typeof(ArrayList))
-                        || (this[champs].GetType() == typeof(Int32[])));
+            //  TODO : A court terme, normalement, il n'y a plus de list dans les listProperties, étant donné que maintenant les champs relationnels sont géré autrement
+            //  donc ces tests doivent etre supprimés...
+            return ((this[champs].GetType() == typeof(ArrayList)) || (this[champs].GetType() == typeof(Int32[])));
         }
         
         /// <summary>
-        /// Copie les donn�es � partir d'un flux xmlrpc
+        /// Copie les données à partir d'un flux xmlrpc
         /// </summary>
         /// <param name="source">Objet XmlRpcStruct source (provenant d'un flux xmlrpc)</param>
         /// <remarks></remarks>
@@ -204,9 +192,7 @@ namespace IMDEV.OpenERP.models.@base {
             IEnumerator boucle;
             boucle = source.GetEnumerator();
             while (boucle.MoveNext())
-            {
                 add((string)((DictionaryEntry)(boucle.Current)).Key, ((DictionaryEntry)(boucle.Current)).Value/*traitementListe(((DictionaryEntry)(boucle.Current)).Value)*/);
-            }
         }
         
         /*private object traitementListe(object valeur) {

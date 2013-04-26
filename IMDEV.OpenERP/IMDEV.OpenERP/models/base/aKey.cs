@@ -5,19 +5,19 @@ using System.Text;
 
 namespace IMDEV.OpenERP.models.@base
 {
-    
-    public class aKey {
-        
+    public class aKey
+    {
         private int _id;
-        
         private string _libelle = "";
         
-        public int id {
+        public int id
+        {
             get { return _id; }
             set { _id = value; }
         }
         
-        public string name {
+        public string name
+        {
             get { return _libelle; }
             set { _libelle = value; }
         }
