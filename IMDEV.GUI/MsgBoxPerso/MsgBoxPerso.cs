@@ -121,6 +121,14 @@ namespace IMDEV.GUI.MsgBoxPerso
             this.Close();
         }
 
+        public string showDialogBox(List<MsgBoxPersoButton> boutons)
+        {
+            if (boutons!=null)
+                foreach (MsgBoxPersoButton btn in boutons)
+                    addButton(btn);
+
+            return showDialogBox();
+        }
         public string showDialogBox()
         {
             WindowState = FormWindowState.Normal;
