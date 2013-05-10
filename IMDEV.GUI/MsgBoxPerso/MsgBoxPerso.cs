@@ -149,36 +149,36 @@ namespace IMDEV.GUI.MsgBoxPerso
             this.lblBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBody.AutoSize = true;
             this.lblBody.Location = new System.Drawing.Point(1, 1);
             this.lblBody.Name = "lblBody";
-            this.lblBody.Size = new System.Drawing.Size(104, 18);
+            this.lblBody.Size = new System.Drawing.Size(0, 13);
             this.lblBody.TabIndex = 0;
-            this.lblBody.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblBody.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelBoutons
             // 
-            this.panelBoutons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.panelBoutons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBoutons.Location = new System.Drawing.Point(0, 25);
+            this.panelBoutons.Location = new System.Drawing.Point(0, 34);
             this.panelBoutons.Name = "panelBoutons";
-            this.panelBoutons.Size = new System.Drawing.Size(105, 39);
+            this.panelBoutons.Size = new System.Drawing.Size(105, 30);
             this.panelBoutons.TabIndex = 1;
+            this.panelBoutons.Resize += new System.EventHandler(this.panelBoutons_Resize);
             // 
             // MsgBoxPerso
             // 
             this.ClientSize = new System.Drawing.Size(104, 64);
             this.Controls.Add(this.panelBoutons);
             this.Controls.Add(this.lblBody);
-            this.Name = "MsgBoxPerso";
-            this.ResumeLayout(false);
-
-            this.Shown += new EventHandler(MsgBoxPerso_Shown);
-            this.panelBoutons.Resize += new EventHandler(panelBoutons_Resize);
-            this.Resize+=new EventHandler(MsgBoxPerso_Resize);
-
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.Name = "MsgBoxPerso";
+            this.Shown += new System.EventHandler(this.MsgBoxPerso_Shown);
+            this.Resize += new System.EventHandler(this.MsgBoxPerso_Resize);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         void MsgBoxPerso_Resize(object sender, System.EventArgs e)

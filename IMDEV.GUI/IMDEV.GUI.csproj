@@ -121,6 +121,9 @@
     <EmbeddedResource Include="FileFolderDialog\NewFolderDialog.resx">
       <DependentUpon>NewFolderDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MsgBoxPerso\MsgBoxPerso.resx">
+      <DependentUpon>MsgBoxPerso.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
