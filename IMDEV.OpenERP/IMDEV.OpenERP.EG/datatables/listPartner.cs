@@ -30,7 +30,7 @@ namespace IMDEV.OpenERP.EG.datatables
                 query.addEqualTo("customer", true);
                 query.addAND();
                 query.addEqualTo("old_code", oldCode);
-                return (res_partner)clientOERP.read(query, typeof(res_partner))[0];
+                return (res_partner)clientOERP.search(query, typeof(res_partner),true)[0];
             }
             catch { }
             return null;
@@ -44,7 +44,7 @@ namespace IMDEV.OpenERP.EG.datatables
                 query.addEqualTo("supplier", true);
                 query.addAND();
                 query.addEqualTo("old_code", oldCode);
-                return (res_partner)clientOERP.read(query, typeof(res_partner))[0];
+                return (res_partner)clientOERP.search(query, typeof(res_partner), true)[0];
             }
             catch { }
             return null;

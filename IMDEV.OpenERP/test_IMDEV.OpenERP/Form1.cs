@@ -26,12 +26,12 @@ namespace test_IMDEV.OpenERP
             //retour=_monClient.connection("xx_test_pt", "admin", "admin");
             //richTextBox1.AppendText(retour.ToString());
             // Connexion asynchrone
-            _monClient.connectionAsync("test_preproduction", "admin", "Zh84vN!12", comeBackConnection);
+            _monClient.connectionAsync("s16", "admin", "admin", comeBackConnection);
         }
 
         private void comeBackConnection(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            richTextBox1.AppendText(e.Result.ToString());
+            richTextBox1.AppendText(e.Result.ToString()+"\r\n");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -229,6 +229,25 @@ namespace test_IMDEV.OpenERP
                     richTextBox1.AppendText(produit.name + "\r\n");
                 }
             }
+        }
+
+        private void lblReadCli_Click(object sender, EventArgs e)
+        {
+            IMDEV.OpenERP.EG.models.res.res_partner cli;
+            cli = IMDEV.OpenERP.EG.datatables.listPartner.aPartner(3031, _monClient);
+            if (cli == null)
+                richTextBox1.AppendText("No client\r\n");
+            else
+                richTextBox1.AppendText("Client : " + cli.name + "\r\n");
+            IMDEV.OpenERP.EG.models.product.product_product p1, p2;
+            IMDEV.OpenERP.models.@base.listProperties context = new IMDEV.OpenERP.models.@base.listProperties();
+            context.add("company_id", 1);
+            p1 = IMDEV.OpenERP.EG.datatables.listProduct.aProduct("G_CRCHAEXTUNL10", _monClient, context);
+            context = new IMDEV.OpenERP.models.@base.listProperties();
+            context.add("company_id", 2);
+            p2 = IMDEV.OpenERP.EG.datatables.listProduct.aProduct("G_CRCHAEXTUNL10", _monClient, context);
+            richTextBox1.AppendText("p1 : " + p1.property_account_income.id + "\r\n");
+            richTextBox1.AppendText("p2 : " + p2.property_account_income.id + "\r\n");
         }
     }
 }

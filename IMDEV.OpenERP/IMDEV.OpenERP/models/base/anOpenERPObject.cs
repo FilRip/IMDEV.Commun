@@ -310,9 +310,9 @@ namespace IMDEV.OpenERP.models.@base
                     return true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Systeme.exceptionOpenERP(IMDEV.OpenERP.Systeme.exceptionOpenERP.ERRORS.ERR_SAVE_OBJECT);
+                throw new Systeme.exceptionOpenERP(IMDEV.OpenERP.Systeme.exceptionOpenERP.ERRORS.ERR_SAVE_OBJECT, ex.Message);
             }
             finally
             {

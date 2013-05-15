@@ -20,7 +20,7 @@ namespace IMDEV.OpenERP.EG.datatables
 
         public static product_product aProduct(string oldCode, Clients.clientOpenERP clientOERP, OpenERP.models.@base.listProperties context)
         {
-            return aProduct(oldCode, clientOERP, context);
+            return aProduct(oldCode, clientOERP, null, context);
         }
         public static product_product aProduct(string oldCode, Clients.clientOpenERP clientOERP)
         {
