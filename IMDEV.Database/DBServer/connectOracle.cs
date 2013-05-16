@@ -55,6 +55,160 @@ namespace IMDEV.Database.DBServer
             return connect(chaineConnexion);
         }
 
+        public override void connectAsync(connectionProperties parameters, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            System.Collections.Hashtable param = new Hashtable();
+
+            param.Add("connectionProperties", parameters);
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgConnect_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+
+        public override void connectAsync(string connectionString, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            System.Collections.Hashtable param = new Hashtable();
+
+            param.Add("connectionString", connectionString);
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgConnect_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+
+        private void bgConnect_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            IMDEV.Database.Common.connectionProperties cp;
+            string connectionString;
+
+            if (((Hashtable)(e.Argument)).ContainsKey("connectionString"))
+            {
+                connectionString = ((Hashtable)(e.Argument))["connectionString"].ToString();
+                if (!connect(connectionString))
+                {
+                    e.Result = false;
+                    return;
+                }
+            }
+            else
+            {
+                cp = (IMDEV.Database.Common.connectionProperties)((Hashtable)(e.Argument))["connectionProperties"];
+                if (!connect(cp))
+                {
+                    e.Result = false;
+                    return;
+                }
+            }
+            while (_conn.State == ConnectionState.Connecting) { }
+            if (_conn.State != ConnectionState.Open)
+            {
+                e.Result = false;
+                return;
+            }
+            e.Result = true;
+        }
+
+        public override void retourneDonneesAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            Hashtable param = new Hashtable();
+
+            param.Add("requete", requete);
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgRetourneDonnees_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+
+        private void bgRetourneDonnees_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string requete;
+
+            if (((Hashtable)(e.Argument)).ContainsKey("requete"))
+            {
+                requete = ((Hashtable)(e.Argument))["requete"].ToString();
+                e.Result = retourneDonnees(requete);
+            }
+            else
+            {
+                e.Result = retourneDonnees();
+            }
+        }
+
+        public override void executeRequeteAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            Hashtable param = new Hashtable();
+
+            param.Add("requete", requete);
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgExecuteRequete_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+        private void bgExecuteRequete_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string requete;
+
+            requete = ((Hashtable)(e.Argument))["requete"].ToString();
+            e.Result = executeRequete(requete);
+        }
+
+        public override void executeScalaireAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            Hashtable param = new Hashtable();
+
+            param.Add("requete", requete);
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgExecuteScalaire_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+        private void bgExecuteScalaire_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string requete;
+
+            if (((Hashtable)(e.Argument)).ContainsKey("requete"))
+            {
+                requete = ((Hashtable)(e.Argument))["requete"].ToString();
+                e.Result = executeScalaire(requete);
+            }
+            else
+            {
+                e.Result = executeScalaire();
+            }
+        }
+
+        public override void executeScalaireAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgExecuteScalaire_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync();
+        }
+
+        public override void executeProcedureStockeeAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgExecuteProcedureStockee_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync();
+        }
+        private void bgExecuteProcedureStockee_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            e.Result = executeProcedureStockee();
+        }
+
+        public override void retourneDonneesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgRetourneDonnees_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync();
+        }
+
         /// <summary>
         /// Converti les données d'un OracleReader à un unRetourRequete
         /// </summary>

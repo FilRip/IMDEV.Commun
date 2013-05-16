@@ -72,16 +72,32 @@ namespace IMDEV.Database
             return _myConnection.connect(connectionProperties);
         }
 
+        public void connectAsync(Common.connectionProperties connectionProperties, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.connectAsync(connectionProperties, callBack);
+        }
+
         public unRetourRequete retourneDonnees(string requete)
         {
             if (checkCurrentServerType()) return null;
             return _myConnection.retourneDonnees(requete);
+        }
+        public void retourneDonneesAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.retourneDonneesAsync(requete, callBack);
         }
 
         public bool executeRequete(string requete)
         {
             if (checkCurrentServerType()) return false;
             return _myConnection.executeRequete(requete);
+        }
+        public void executeRequeteAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.executeRequeteAsync(requete, callBack);
         }
 
         public bool prepareProcedureStockee(string nom)
@@ -101,11 +117,21 @@ namespace IMDEV.Database
             if (checkCurrentServerType()) return false;
             return _myConnection.executeProcedureStockee();
         }
+        public void executeProcedureStockeeAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.executeProcedureStockeeAsync(callBack);
+        }
 
         public unRetourRequete retourneDonnees()
         {
             if (checkCurrentServerType()) return null;
             return _myConnection.retourneDonnees();
+        }
+        public void retourneDonneesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.retourneDonneesAsync(callBack);
         }
 
         public System.Data.ConnectionState state()
@@ -119,11 +145,21 @@ namespace IMDEV.Database
             if (checkCurrentServerType()) return null;
             return _myConnection.executeScalaire(requete);
         }
+        public void executeScalaireAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.executeScalaireAsync(requete, callBack);
+        }
 
         public object executeScalaire()
         {
             if (checkCurrentServerType()) return null;
             return _myConnection.executeScalaire();
+        }
+        public void executeScalaireAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            if (checkCurrentServerType()) return;
+            _myConnection.executeScalaireAsync(callBack);
         }
 
         public void fermer()

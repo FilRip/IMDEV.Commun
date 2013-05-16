@@ -23,6 +23,16 @@ namespace IMDEV.Database.Common
         abstract public void fermer();
         abstract public System.Data.ConnectionState state();
 
+        // Asynchrone
+        abstract public void connectAsync(connectionProperties parameters, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void connectAsync(string connectionString, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void retourneDonneesAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void executeRequeteAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void executeScalaireAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void executeScalaireAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void executeProcedureStockeeAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+        abstract public void retourneDonneesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
+
         // TODO : generateConnectionString
         //abstract public string generateConnectionString(params string[] values);
 
