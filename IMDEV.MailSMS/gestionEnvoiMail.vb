@@ -3,6 +3,8 @@
 Public Class gestionEnvoiMail
     Inherits SmtpClient
 
+    Private Const TAILLE_SMS As Integer = 160
+
     Private _formatHTML As Boolean
     Private _mail As New MailMessage
     Private _sms As Boolean
@@ -100,6 +102,15 @@ Public Class gestionEnvoiMail
         _auth = New Net.NetworkCredential(login, mdp)
     End Sub
 
+    Public Sub envoiMailAsync(ByVal callBack As System.ComponentModel.RunWorkerCompletedEventHandler)
+        Dim bg As System.ComponentModel.BackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        AddHandler bg.DoWork, AddressOf bg_DoWork
+        AddHandler bg.RunWorkerCompleted, callBack
+        bg.RunWorkerAsync()
+    End Sub
+    Private Sub bg_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
+        e.Result = envoiMail()
+    End Sub
     ''' <summary>
     ''' Fonction principale, envoi le mail une fois que tout a été défini
     ''' </summary>
@@ -115,8 +126,8 @@ Public Class gestionEnvoiMail
             End If
             _mail.IsBodyHtml = _formatHTML
             If (_sms) Then
-                If (_mail.Body.Length > 160) Then
-                    _mail.Body = _mail.Body.Substring(0, 159)
+                If (_mail.Body.Length > TAILLE_SMS) Then
+                    _mail.Body = _mail.Body.Substring(0, TAILLE_SMS - 1)
                 End If
             End If
             Send(_mail)
