@@ -8,6 +8,15 @@ namespace IMDEV.PackUnpack
 {
     public class lzma
     {
+        private const Int32 DEFAULT_DICTIONARY = 1 << 21;
+        private const Int32 DEFAULT_POSSTATEBITS = 2;
+        private const Int32 DEFAULT_LITCONTEXTBITS = 3; // for normal files // 0 for 32-bit data
+        private const Int32 DEFAULT_LITPOSBITS = 0; // 2 for 32-bit data
+        private const Int32 DEFAULT_ALGORITHM = 2;
+        private const Int32 DEFAULT_NUMFASTBYTES = 128;
+        private const bool DEFAULT_EOS = false;
+        private const string DEFAULT_MF = "bt4";
+
         /// <summary>
         /// Décompresse un fichier au format LZMA de 7zip
         /// </summary>
@@ -15,7 +24,48 @@ namespace IMDEV.PackUnpack
         /// <param name="destination">Fichier de sortie (décompressé)</param>
         /// <param name="replace">Force ou non l'écrasement du fichier destination</param>
         /// <param name="progress">Interface pour la progression (non utilisé encore)</param>
+        public static void decompressAsync(string source, string destination, bool replace, System.ComponentModel.RunWorkerCompletedEventHandler callBack, ICodeProgress progress)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            System.Collections.Hashtable param = new System.Collections.Hashtable();
+
+            param.Add("source", source);
+            param.Add("destination", destination);
+            param.Add("replace", replace);
+            param.Add("progress", progress);
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgDecompress_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+
+        private static void bgDecompress_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string source, destination;
+            bool replace;
+            ICodeProgress progress;
+
+            source = (string)(((System.Collections.Hashtable)(e.Argument))["source"]);
+            destination = (string)(((System.Collections.Hashtable)(e.Argument))["destination"]);
+            replace = (bool)(((System.Collections.Hashtable)(e.Argument))["replace"]);
+            progress = (ICodeProgress)(((System.Collections.Hashtable)(e.Argument))["progress"]);
+
+            try
+            {
+                decompressData(source, destination, replace, progress);
+                e.Result = true;
+            }
+            catch
+            {
+                e.Result = false;
+            }
+        }
         public static void decompress(string source, string destination, bool replace, ICodeProgress progress)
+        {
+            decompressData(source, destination, replace, progress);
+        }
+
+        private static void decompressData(string source, string destination, bool replace, ICodeProgress progress)
         {
             if (File.Exists(destination))
             {
@@ -55,20 +105,13 @@ namespace IMDEV.PackUnpack
         /// <param name="source">Fichier à compresser</param>
         /// <param name="destination">Fichier résultant (fichier compressé .lzma)</param>
         /// <param name="progress">Interface pour la progression (non utilisé encore)</param>
+        public static void compressWithDefaultParamAsync(string source, string destination, ICodeProgress progress, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            compressAsync(source, destination, DEFAULT_DICTIONARY, DEFAULT_POSSTATEBITS, DEFAULT_LITCONTEXTBITS, DEFAULT_LITPOSBITS, DEFAULT_ALGORITHM, DEFAULT_NUMFASTBYTES, DEFAULT_EOS, DEFAULT_MF, progress, callBack);
+        }
         public static void compressWithDefaultParam(string source, string destination, ICodeProgress progress)
         {
-            Int32 dictionary = 1 << 21;
-
-            Int32 posStateBits = 2;
-            Int32 litContextBits = 3; // for normal files
-            // UInt32 litContextBits = 0; // for 32-bit data
-            Int32 litPosBits = 0;
-            // UInt32 litPosBits = 2; // for 32-bit data
-            Int32 algorithm = 2;
-            Int32 numFastBytes = 128;
-            bool eos = false;
-            string mf = "bt4";
-            compress(source, destination, dictionary, posStateBits, litContextBits, litPosBits, algorithm, numFastBytes, eos, mf, progress);
+            compressData(source, destination, DEFAULT_DICTIONARY, DEFAULT_POSSTATEBITS, DEFAULT_LITCONTEXTBITS, DEFAULT_LITPOSBITS, DEFAULT_ALGORITHM, DEFAULT_NUMFASTBYTES, DEFAULT_EOS, DEFAULT_MF, progress);
         }
 
         /// <summary>
@@ -85,7 +128,62 @@ namespace IMDEV.PackUnpack
         /// <param name="eos"></param>
         /// <param name="mf"></param>
         /// <param name="progress">Interface pour la progression (non utilisé encore)</param>
+        public static void compressAsync(string source, string destination, Int32 dictionary, Int32 posStateBits, Int32 litContextBits, Int32 litPosBits, Int32 algorithm, Int32 numFastBytes, bool eos, string mf, ICodeProgress progress, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            System.Collections.Hashtable param = new System.Collections.Hashtable();
+
+            param.Add("source", source);
+            param.Add("destinations", destination);
+            param.Add("dictionary", dictionary);
+            param.Add("posStateBits", posStateBits);
+            param.Add("litContextBits", litContextBits);
+            param.Add("litPosBits", litPosBits);
+            param.Add("algorithm", algorithm);
+            param.Add("numFastBytes", numFastBytes);
+            param.Add("eos", eos);
+            param.Add("mf", mf);
+            param.Add("progress", progress);
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgCompress_DoWork);
+            bg.RunWorkerCompleted += callBack;
+            bg.RunWorkerAsync(param);
+        }
+
+        private static void bgCompress_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string source, destination, mf;
+            Int32 dictionary, posStateBits, litContextBits, litPosBits, algorithm, numFastBytes;
+            bool eos;
+            ICodeProgress progress;
+
+            source = (string)(((System.Collections.Hashtable)(e.Argument))["source"]);
+            destination = (string)(((System.Collections.Hashtable)(e.Argument))["destination"]);
+            dictionary = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["dictionary"].ToString());
+            posStateBits = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["posStateBits"].ToString());
+            litContextBits = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["litContextBits"].ToString());
+            litPosBits = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["litPosBits"].ToString());
+            algorithm = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["algorithm"].ToString());
+            numFastBytes = Int32.Parse(((System.Collections.Hashtable)(e.Argument))["numFastBytes"].ToString());
+            mf = (string)(((System.Collections.Hashtable)(e.Argument))["mf"]);
+            eos = (bool)(((System.Collections.Hashtable)(e.Argument))["eos"]);
+            progress = (ICodeProgress)(((System.Collections.Hashtable)(e.Argument))["progress"]);
+
+            try
+            {
+                compressData(source, destination, dictionary, posStateBits, litContextBits, litPosBits, algorithm, numFastBytes, eos, mf, progress);
+                e.Result = true;
+            }
+            catch
+            {
+                e.Result = false;
+            }
+        }
         public static void compress(string source, string destination, Int32 dictionary, Int32 posStateBits, Int32 litContextBits, Int32 litPosBits, Int32 algorithm, Int32 numFastBytes, bool eos, string mf, ICodeProgress progress)
+        {
+            compressData(source, destination, dictionary, posStateBits, litContextBits, litPosBits, algorithm, numFastBytes, eos, mf, progress);
+        }
+        private static void compressData(string source, string destination, Int32 dictionary, Int32 posStateBits, Int32 litContextBits, Int32 litPosBits, Int32 algorithm, Int32 numFastBytes, bool eos, string mf, ICodeProgress progress)
         {
             Stream inStream = null;
             inStream = new FileStream(source, FileMode.Open, FileAccess.Read);
