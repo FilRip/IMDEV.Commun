@@ -419,6 +419,33 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
+        public override List<string> listTables()
+        {
+            Common.unRetourRequete result;
+            List<string> retour = null;
+
+            result = retourneDonnees("select table_name from information_schema.tables where table_schema='" + currentDatabase + "'");
+            if (result != null)
+            {
+                retour = new List<string>();
+                foreach (DataRow ligne in result.Tables[0].Rows)
+                    retour.Add(ligne[0].ToString());
+            }
+            return retour;
+        }
+        public override IMDEV.Database.models.aTable returnTable(string name)
+        {
+            throw new NotImplementedException();
+        }
+        public override List<IMDEV.Database.models.aFieldType> listFieldType()
+        {
+            throw new NotImplementedException();
+        }
+        public override List<string> listSchemas()
+        {
+            throw new NotImplementedException();
+        }
+
         public override ConnectionState state()
         {
             return _conn.State;

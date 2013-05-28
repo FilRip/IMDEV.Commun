@@ -422,6 +422,36 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
+        public override List<string> listTables()
+        {
+            throw new NotImplementedException();
+        }
+        public override IMDEV.Database.models.aTable returnTable(string name)
+        {
+            throw new NotImplementedException();
+        }
+        public override List<IMDEV.Database.models.aFieldType> listFieldType()
+        {
+            throw new NotImplementedException();
+        }
+        public override List<string> listSchemas()
+        {
+            throw new NotImplementedException();
+        }
+
+        public new string currentDatabase
+        {
+            get
+            {
+                foreach (string partie in _lastServeur.Split(';'))
+                {
+                    if (partie.ToLower().Trim().StartsWith("data source="))
+                        return partie.Split('=')[1].Trim().ToString();
+                }
+                return "";
+            }
+        }
+
         public override ConnectionState state()
         {
             return _conn.State;

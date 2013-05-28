@@ -34,6 +34,19 @@ namespace IMDEV.Database.DBServer
             return connexion(parameters.fileName);
         }
 
+        public new string currentDatabase
+        {
+            get
+            {
+                foreach (string partie in _lastServeur.Split(';'))
+                {
+                    if (partie.ToLower().Trim().StartsWith("data source="))
+                        return partie.Split('=')[1].Trim().ToString();
+                }
+                return "";
+            }
+        }
+
         public bool connexion(string nomFichier)
         {
             string chaineConnexion = "Data Source=" + nomFichier + ";Pooling=true;FailIfMissing=false";
@@ -408,6 +421,23 @@ namespace IMDEV.Database.DBServer
                 _lastError = ex.Message;
             }
             return null;
+        }
+
+        public override List<string> listTables()
+        {
+            throw new NotImplementedException();
+        }
+        public override IMDEV.Database.models.aTable returnTable(string name)
+        {
+            throw new NotImplementedException();
+        }
+        public override List<IMDEV.Database.models.aFieldType> listFieldType()
+        {
+            throw new NotImplementedException();
+        }
+        public override List<string> listSchemas()
+        {
+            throw new NotImplementedException();
         }
 
         private void verifConnexion()

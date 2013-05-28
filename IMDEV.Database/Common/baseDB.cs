@@ -22,6 +22,10 @@ namespace IMDEV.Database.Common
         abstract public unRetourRequete retourneDonnees();
         abstract public void fermer();
         abstract public System.Data.ConnectionState state();
+        abstract public List<string> listTables();
+        abstract public models.aTable returnTable(string name);
+        abstract public List<models.aFieldType> listFieldType();
+        abstract public List<string> listSchemas();
 
         // Asynchrone
         abstract public void connectAsync(connectionProperties parameters, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
@@ -35,6 +39,19 @@ namespace IMDEV.Database.Common
 
         // TODO : generateConnectionString
         //abstract public string generateConnectionString(params string[] values);
+
+        public string currentDatabase
+        {
+            get
+            {
+                foreach (string partie in _lastServeur.Split(';'))
+                {
+                    if (partie.ToLower().Trim().StartsWith("database="))
+                        return partie.Split('=')[1].Trim().ToString();
+                }
+                return "";
+            }
+        }
 
         public string lastError
         {

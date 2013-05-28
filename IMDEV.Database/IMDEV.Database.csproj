@@ -68,6 +68,9 @@
     <Compile Include="DBServer\connectPostgreSQL.cs" />
     <Compile Include="DBServer\connectSQLite.cs" />
     <Compile Include="DBServer\connectSQLServer.cs" />
+    <Compile Include="models\aField.cs" />
+    <Compile Include="models\aFieldType.cs" />
+    <Compile Include="models\aTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

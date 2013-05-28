@@ -162,6 +162,23 @@ namespace IMDEV.Database
             _myConnection.executeScalaireAsync(callBack);
         }
 
+        public List<string> listTables()
+        {
+            if (checkCurrentServerType()) return null;
+            return _myConnection.listTables();
+        }
+
+        public models.aTable returnTable(string tableName)
+        {
+            if (checkCurrentServerType()) return null;
+            return _myConnection.returnTable(tableName);
+        }
+
+        public List<string> returnShemas()
+        {
+            if (checkCurrentServerType()) return null;
+            return _myConnection.listSchemas();
+        }
         public void fermer()
         {
             _myConnection.fermer();
