@@ -51,7 +51,7 @@ namespace IMDEV.Database.DBServer
         }
         public bool connexion(string serveur, string nomBase, string login, string motDePasse, int port)
         {
-            string chaineConnexion = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=EUROPROD)(PORT=" + port.ToString() + ")))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=" + nomBase + ")));User Id=" + login + ";Password=" + motDePasse + ";";
+            string chaineConnexion = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=" + serveur +")(PORT=" + port.ToString() + ")))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=" + nomBase + ")));User Id=" + login + ";Password=" + motDePasse + ";";
             return connect(chaineConnexion);
         }
 
