@@ -419,7 +419,7 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
-        public override List<string> listTables()
+        protected new List<string> listTablesData()
         {
             Common.unRetourRequete result;
             List<string> retour = null;
@@ -444,6 +444,18 @@ namespace IMDEV.Database.DBServer
         public override List<string> listSchemas()
         {
             throw new NotImplementedException();
+        }
+        public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            listTablesAsync(currentDatabase, "", callBack);
+        }
+        public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            throw new NotImplementedException();
+        }
+        public override List<string> listTables()
+        {
+            return listTablesData();
         }
 
         public override ConnectionState state()

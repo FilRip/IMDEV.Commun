@@ -495,6 +495,14 @@ namespace IMDEV.Database.DBServer
         {
             throw new NotImplementedException();
         }
+        public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            throw new NotImplementedException();
+        }
+        public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            throw new NotImplementedException();
+        }
 
         public new string currentDatabase
         {

@@ -408,44 +408,23 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
-        public override List<string> listTables()
+        public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
-            Common.unRetourRequete result;
-            List<string> retour = null;
-
-            result = retourneDonnees("select table_name from information_schema.tables where table_schema='dbo' and table_catalog='" + currentDatabase + "' and table_type='BASE TABLE'");
-            if (result != null)
-            {
-                retour = new List<string>();
-                foreach (DataRow ligne in result.Tables[0].Rows)
-                    retour.Add(ligne[0].ToString());
-            }
-            return retour;
+            listTablesAsync(currentDatabase, "dbo", callBack);
         }
 
+        public override List<string> listTables()
+        {
+            return listTablesData(currentDatabase, "dbo");
+        }
+
+        public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            returnTableAsync(name, currentDatabase, "dbo", callBack);
+        }
         public override IMDEV.Database.models.aTable returnTable(string name)
         {
-            models.aTable retour = null;
-            Common.unRetourRequete result;
-            models.aField f;
-            models.aFieldType ft;
-
-            result = retourneDonnees("select * from information_schema.columns where table_name='" + name.Trim() + "' and table_catalog='" + currentDatabase + "' and table_schema='dbo'");
-            if (result != null)
-            {
-                retour = new IMDEV.Database.models.aTable();
-                retour.tableName = name.Trim();
-                foreach (DataRow ligne in result.Tables[0].Rows)
-                {
-                    f = new IMDEV.Database.models.aField();
-                    ft = new IMDEV.Database.models.aFieldType();
-                    ft.name = ligne["data_type"].ToString();
-                    f.fieldType = ft;
-                    f.name = ligne["column_name"].ToString();
-                    retour.listOfFields.Add(f);
-                }
-            }
-            return retour;
+            return returnTableData(name, currentDatabase, "dbo");
         }
 
         public override List<IMDEV.Database.models.aFieldType> listFieldType()
