@@ -97,6 +97,7 @@
     <Compile Include="models\product\product_valnut.cs" />
     <Compile Include="models\quality\comment_quality_formulator.cs" />
     <Compile Include="models\quality\quality_cdc.cs" />
+    <Compile Include="models\quality\quality_pqcd_setting.cs" />
     <Compile Include="models\res\res_company.cs" />
     <Compile Include="models\res\res_country.cs" />
     <Compile Include="models\res\res_country_state.cs" />
