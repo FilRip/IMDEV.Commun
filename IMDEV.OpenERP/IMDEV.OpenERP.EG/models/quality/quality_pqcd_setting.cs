@@ -40,6 +40,7 @@ namespace IMDEV.OpenERP.EG.models.quality
         public string comments
         {
             get { return (string)listProperties.value("comments", aField.FIELD_TYPE.TEXT); }
+            set { listProperties.setValue("comments", value); }
         }
 
         public enum ENUM_STATE

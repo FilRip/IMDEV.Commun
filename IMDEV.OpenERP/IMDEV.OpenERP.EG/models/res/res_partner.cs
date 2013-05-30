@@ -764,6 +764,12 @@ namespace IMDEV.OpenERP.EG.models.res
             return "res.partner";
         }
 
+        public string pqcd_note
+        {
+            get { return (string)listProperties.value("pqcd_note", aField.FIELD_TYPE.TEXT); }
+            set { listProperties.setValue("pqcd_note", value); }
+        }
+
         #region "CaractéristiquesMatières/Formulateur"
 
         public res_partner_address getAddress(OpenERP.Clients.clientOpenERP clientOpenERP)
