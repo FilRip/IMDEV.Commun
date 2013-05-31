@@ -112,6 +112,10 @@ namespace IMDEV.Database.Common
             return retour;
         }
 
+        public void listTablesAsync(string db, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            throw new Exception("You must specify the schema");
+        }
         public void listTablesAsync(string db, string schema, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
@@ -134,6 +138,10 @@ namespace IMDEV.Database.Common
             schema = ((System.Collections.Hashtable)(e.Argument))["schema"].ToString();
 
             e.Result = listTablesData(db, schema);
+        }
+        public List<string> listTables(string db)
+        {
+            throw new Exception("You must specify the schema");
         }
         public List<string> listTables(string db, string schema)
         {

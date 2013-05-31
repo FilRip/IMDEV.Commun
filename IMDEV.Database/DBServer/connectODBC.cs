@@ -435,13 +435,63 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
+        protected List<string> listTablesData()
+        {
+            List<string> retour = null;
+            try
+            {
+                DataTable dt;
+                dt = _conn.GetSchema("Tables");
+                if (dt != null)
+                {
+                    retour = new List<string>();
+                    foreach (DataRow field in dt.Rows)
+                        if (field["TABLE_TYPE"].ToString().ToUpper().Trim() != "SYSTEM TABLE") retour.Add(field["TABLE_NAME"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            return retour;
+        }
+
         public override List<string> listTables()
         {
-            throw new NotImplementedException();
+            return listTablesData();
         }
         public override IMDEV.Database.models.aTable returnTable(string name)
         {
-            throw new NotImplementedException();
+            return returnTableData(name);
+        }
+        protected models.aTable returnTableData(string name)
+        {
+            models.aTable retour = null;
+            try
+            {
+                DataTable dt;
+                models.aField f;
+                models.aFieldType ft;
+                dt = _conn.GetSchema("Columns", new string[] { null, null, name, null });
+                if (dt != null)
+                {
+                    retour = new models.aTable();
+                    foreach (DataRow field in dt.Rows)
+                    {
+                        f = new IMDEV.Database.models.aField();
+                        f.name = field["COLUMN_NAME"].ToString();
+                        ft = new IMDEV.Database.models.aFieldType();
+                        ft.name = field["DATA_TYPE"].ToString();
+                        f.fieldType = ft;
+                        retour.listOfFields.Add(f);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            return retour;
         }
         public override List<IMDEV.Database.models.aFieldType> listFieldType()
         {
@@ -453,8 +503,19 @@ namespace IMDEV.Database.DBServer
         }
         public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
-            throw new NotImplementedException();
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgListTables_DoWork);
+            bg.RunWorkerCompleted += callBack;
+
+            bg.RunWorkerAsync();
         }
+
+        private void bgListTables_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            e.Result = listTablesData();
+        }
+
         public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             throw new NotImplementedException();

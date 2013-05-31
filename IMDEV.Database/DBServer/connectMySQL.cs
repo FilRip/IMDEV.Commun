@@ -419,12 +419,21 @@ namespace IMDEV.Database.DBServer
             return null;
         }
 
-        protected new List<string> listTablesData()
+        public new List<string> listTables(string db, string schema)
+        {
+            throw new Exception("MySQL does not support schema");
+        }
+        public new List<string> listTables(string db)
+        {
+            return listTablesData(db);
+        }
+
+        protected List<string> listTablesData(string db)
         {
             Common.unRetourRequete result;
             List<string> retour = null;
 
-            result = retourneDonnees("select table_name from information_schema.tables where table_schema='" + currentDatabase + "'");
+            result = retourneDonnees("select table_name from information_schema.tables where table_schema='" + db + "'");
             if (result != null)
             {
                 retour = new List<string>();
@@ -443,11 +452,15 @@ namespace IMDEV.Database.DBServer
         }
         public override List<string> listSchemas()
         {
-            throw new NotImplementedException();
+            throw new Exception("MySQL does not support schema");
         }
         public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             listTablesAsync(currentDatabase, "", callBack);
+        }
+        public new void listTablesAsync(string db, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
+        {
+            listTablesAsync(db, "", callBack);
         }
         public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
@@ -455,7 +468,32 @@ namespace IMDEV.Database.DBServer
         }
         public override List<string> listTables()
         {
-            return listTablesData();
+            return listTablesData(currentDatabase);
+        }
+
+        protected IMDEV.Database.models.aTable returnTableData(string name, string db)
+        {
+            models.aTable retour = null;
+            Common.unRetourRequete result;
+            models.aField f;
+            models.aFieldType ft;
+
+            result = retourneDonnees("select * from information_schema.columns where table_name='" + name.Trim() + "' and table_schema='" + db + "'");
+            if (result != null)
+            {
+                retour = new IMDEV.Database.models.aTable();
+                retour.tableName = name.Trim();
+                foreach (DataRow ligne in result.Tables[0].Rows)
+                {
+                    f = new IMDEV.Database.models.aField();
+                    ft = new IMDEV.Database.models.aFieldType();
+                    ft.name = ligne["data_type"].ToString();
+                    f.fieldType = ft;
+                    f.name = ligne["column_name"].ToString();
+                    retour.listOfFields.Add(f);
+                }
+            }
+            return retour;
         }
 
         public override ConnectionState state()
