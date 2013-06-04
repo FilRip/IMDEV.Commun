@@ -47,7 +47,7 @@ namespace IMDEV.Database.DBServer
         /// <remarks></remarks>
         public bool connexion(string serveur, string nomBase, string login, string motDePasse)
         {
-            return connexion(serveur,nomBase,login,motDePasse,1521);
+            return connexion(serveur, nomBase, login, motDePasse, 1521);
         }
         public bool connexion(string serveur, string nomBase, string login, string motDePasse, int port)
         {
@@ -481,12 +481,65 @@ namespace IMDEV.Database.DBServer
 
         public override List<string> listTables()
         {
-            throw new NotImplementedException();
+            return listTablesData();
         }
+        private List<string> listTablesData()
+        {
+            List<string> retour = null;
+            DataTable result;
+
+            try
+            {
+                result = _conn.GetSchema("Tables");
+                if (result != null)
+                {
+                    retour = new List<string>();
+                    foreach (DataRow ligne in result.Rows)
+                        if (ligne["TYPE"].ToString().Trim().ToLower()!="system")
+                            retour.Add(ligne["TABLE_NAME"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            return retour;
+        }
+
         public override IMDEV.Database.models.aTable returnTable(string name)
         {
-            throw new NotImplementedException();
+            return returnTableData(name);
         }
+        private models.aTable returnTableData(string name)
+        {
+            models.aTable retour = null;
+            DataTable result;
+            models.aField f;
+            models.aFieldType ft;
+            try
+            {
+                result = _conn.GetSchema("Columns", new string[] { null, name, null });
+                if (result != null)
+                {
+                    retour = new models.aTable();
+                    foreach (DataRow ligne in result.Rows)
+                    {
+                        f = new IMDEV.Database.models.aField();
+                        f.name = ligne["COLUMN_NAME"].ToString();
+                        ft = new IMDEV.Database.models.aFieldType();
+                        ft.name = ligne["DATATYPE"].ToString();
+                        f.fieldType = ft;
+                        retour.listOfFields.Add(f);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _lastError = ex.Message;
+            }
+            return retour;
+        }
+
         public override List<IMDEV.Database.models.aFieldType> listFieldType()
         {
             throw new NotImplementedException();
@@ -495,13 +548,41 @@ namespace IMDEV.Database.DBServer
         {
             throw new NotImplementedException();
         }
+
         public override void listTablesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
-            throw new NotImplementedException();
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgListTables_DoWork);
+            bg.RunWorkerCompleted += callBack;
+
+            bg.RunWorkerAsync();
         }
+        private void bgListTables_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            e.Result = listTablesData();
+        }
+
         public override void returnTableAsync(string name, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
-            throw new NotImplementedException();
+            System.ComponentModel.BackgroundWorker bg = new System.ComponentModel.BackgroundWorker();
+            System.Collections.Hashtable param = new Hashtable();
+
+            param.Add("name", name);
+
+            bg.DoWork += new System.ComponentModel.DoWorkEventHandler(bgReturnTable_DoWork);
+            bg.RunWorkerCompleted += callBack;
+
+            bg.RunWorkerAsync(param);
+        }
+
+        private void bgReturnTable_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            string name;
+
+            name = ((Hashtable)(e.Argument))["name"].ToString();
+
+            e.Result = returnTableData(name);
         }
 
         public new string currentDatabase
