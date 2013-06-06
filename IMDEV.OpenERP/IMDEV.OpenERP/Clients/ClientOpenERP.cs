@@ -128,7 +128,7 @@ namespace IMDEV.OpenERP.Clients
             }
             f.Close();
             byte[] dummyArray = donnees.ToArray();
-            _contentBase64 = IMDEV.Decrypt.Base64.encodeBase64(ref dummyArray);
+            _contentBase64 = IMDEV.Cryptage.Base64.encodeBase64(dummyArray);
             obj.listProperties.add("datas", _contentBase64);
             obj.listProperties.add("datas_fname", System.IO.Path.GetFileName(filename));
             obj.listProperties.add("name", libelle);

@@ -24,7 +24,7 @@ namespace IMDEV.OpenERP.models.@base
         
         public byte[] decodedFileContent
         {
-            get { return IMDEV.Decrypt.Base64.decodeBase64(ref _contenu); }
+            get { return IMDEV.Cryptage.Base64.decodeBase64(_contenu); }
         }
 
         public void saveFile(string destination)
@@ -41,7 +41,7 @@ namespace IMDEV.OpenERP.models.@base
                 System.IO.File.Delete(destination);
             }
             System.IO.FileStream fs = new System.IO.FileStream(destination, System.IO.FileMode.Create, System.IO.FileAccess.Write, System.IO.FileShare.Write);
-            donnees = IMDEV.Decrypt.Base64.decodeBase64(ref _contenu);
+            donnees = IMDEV.Cryptage.Base64.decodeBase64(_contenu);
             foreach (byte octet in donnees)
                 fs.WriteByte(octet);
             fs.Close();

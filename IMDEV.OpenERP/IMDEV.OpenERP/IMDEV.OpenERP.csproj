@@ -31,8 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IMDEV.Decrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="IMDEV.Maths, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -83,6 +81,14 @@
     <Compile Include="systeme\exceptionOpenERP.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\IMDEV.Cryptage\IMDEV.Cryptage.vbproj">
+      <Project>{AF79CFF5-93C2-40FA-AC6B-A03AB87C67AE}</Project>
+      <Name>IMDEV.Cryptage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\IMDEV.Maths\IMDEV.Maths.vbproj">
+      <Project>{0E90F218-165A-48B5-95AA-5319C1CD5A16}</Project>
+      <Name>IMDEV.Maths</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IMDEV.Threading\IMDEV.Threading\IMDEV.Threading.csproj">
       <Project>{BA58B895-0EC5-4AD0-A83E-1595D3B542C4}</Project>
       <Name>IMDEV.Threading</Name>
