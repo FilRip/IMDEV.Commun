@@ -464,7 +464,7 @@ namespace IMDEV.Database.DBServer
 
         public override ConnectionState state()
         {
-            return _conn.State;
+            if (_conn != null) return _conn.State; else return ConnectionState.Closed;
         }
     }
 }
