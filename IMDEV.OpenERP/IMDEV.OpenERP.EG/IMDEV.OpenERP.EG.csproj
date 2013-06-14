@@ -52,6 +52,7 @@
     <Compile Include="datatables\listIntraStatCode.cs" />
     <Compile Include="datatables\listPartner.cs" />
     <Compile Include="datatables\listProduct.cs" />
+    <Compile Include="datatables\listSaleOrder.cs" />
     <Compile Include="datatables\listSecurity.cs" />
     <Compile Include="datatables\listState.cs" />
     <Compile Include="datatables\listUsers.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="models\res\res_partner_address.cs" />
     <Compile Include="models\res\res_partner_contact.cs" />
     <Compile Include="models\res\res_users.cs" />
+    <Compile Include="models\sale\sale_order.cs" />
     <Compile Include="models\stock\stock_location.cs" />
     <Compile Include="models\stock\stock_location_type.cs" />
     <Compile Include="models\stock\stock_move.cs" />

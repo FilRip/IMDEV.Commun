@@ -20,13 +20,13 @@ namespace test_IMDEV.OpenERP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _monClient = new IMDEV.OpenERP.Clients.clientOpenERP("172.31.0.2", 8069);
+            _monClient = new IMDEV.OpenERP.Clients.clientOpenERP("172.31.0.2", 8169);
             // Connexion directe
             //bool retour;
             //retour=_monClient.connection("xx_test_pt", "admin", "admin");
             //richTextBox1.AppendText(retour.ToString());
             // Connexion asynchrone
-            _monClient.connectionAsync("s16", "admin", "admin", comeBackConnection);
+            _monClient.connectionAsync("preproduction", "admin", "Zh84vN!12", comeBackConnection);
         }
 
         private void comeBackConnection(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
