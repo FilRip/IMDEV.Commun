@@ -41,7 +41,7 @@ namespace IMDEV.Database.DBServer
         }
         public bool connexion(string serveur, string baseDeDonnees, string login, string motDePasse, int port)
         {
-            string chaine = "Server=" + serveur + ";Database=" + baseDeDonnees + ";User id=" + login + ";Password=" + motDePasse + ";Port=" + port.ToString();
+            string chaine = "Server=" + serveur + ";Database=" + baseDeDonnees + ";User id=" + login + ";Password=" + motDePasse + ";Port=" + port.ToString()+";CommandTimeout=20;Timeout=20;";
             return connect(chaine);
         }
 
