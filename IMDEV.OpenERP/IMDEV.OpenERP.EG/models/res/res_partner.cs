@@ -754,6 +754,12 @@ namespace IMDEV.OpenERP.EG.models.res
             set { listProperties.setValue("internal_compta_num_supplier", value); }
         }
 
+        public string chronotec_email
+        {
+            get { return (string)listProperties.value("chronotec_email", aField.FIELD_TYPE.CHAR); }
+            set { listProperties.setValue("chronotec_email", value); }
+        }
+
         public int id
         {
             get { return (int)listProperties.value("id", aField.FIELD_TYPE.INTEGER); }
