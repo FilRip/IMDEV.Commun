@@ -58,3 +58,11 @@
 /IMDEV.Threading/testIMDEVThreading/bin
 /IMDEV.Threading/testIMDEVThreading/obj
 /IMDEV.Commun.suo
+/IMDEV.InstantMessaging/InstantMessaging/bin
+/IMDEV.InstantMessaging/InstantMessaging/obj
+/IMDEV.InstantMessaging/jabber/bin
+/IMDEV.InstantMessaging/jabber/obj
+/IMDEV.InstantMessaging/netlib.Dns/bin
+/IMDEV.InstantMessaging/netlib.Dns/obj
+/IMDEV.InstantMessaging/test_IMDEV.IM/bin
+/IMDEV.InstantMessaging/test_IMDEV.IM/obj

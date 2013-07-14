@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDEV.InstantMessaging", "InstantMessaging\IMDEV.InstantMessaging.csproj", "{2477D5AA-C7F7-4215-A396-063BBBF5F0E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2008-jabber-net", "jabber\2008-jabber-net.csproj", "{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_IMDEV.IM", "test_IMDEV.IM\test_IMDEV.IM.csproj", "{1DE435AC-38A3-4507-BCA2-986F71C836AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netlib.Dns", "netlib.Dns\netlib.Dns.csproj", "{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2477D5AA-C7F7-4215-A396-063BBBF5F0E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2477D5AA-C7F7-4215-A396-063BBBF5F0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2477D5AA-C7F7-4215-A396-063BBBF5F0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2477D5AA-C7F7-4215-A396-063BBBF5F0E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE435AC-38A3-4507-BCA2-986F71C836AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE435AC-38A3-4507-BCA2-986F71C836AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE435AC-38A3-4507-BCA2-986F71C836AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE435AC-38A3-4507-BCA2-986F71C836AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
