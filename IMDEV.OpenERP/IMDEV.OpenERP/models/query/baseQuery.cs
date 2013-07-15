@@ -29,7 +29,7 @@ namespace IMDEV.OpenERP.models.query
         {
             if (_listeParametre != null)
                 foreach (string p in _listeParametre)
-                    if ((p == valeur))
+                    if (p == valeur)
                     {
                         _listeParametre.Remove(p);
                         break;
@@ -57,10 +57,9 @@ namespace IMDEV.OpenERP.models.query
             return _listeParametre;
         }
 
-
         protected void initListe()
         {
-            if ((_listeParametre == null))
+            if (_listeParametre == null)
                 _listeParametre = new List<Object>();
         }
     }
