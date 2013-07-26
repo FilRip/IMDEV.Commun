@@ -20,7 +20,7 @@ namespace test_IMDEV.OpenERP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _monClient = new IMDEV.OpenERP.Clients.clientOpenERP("172.31.0.2", 8169);
+            _monClient = new IMDEV.OpenERP.Clients.clientOpenERP("172.31.0.105", 8169);
             // Connexion directe
             //bool retour;
             //retour=_monClient.connection("xx_test_pt", "admin", "admin");
