@@ -162,5 +162,28 @@ namespace IMDEV.OpenERP.EG.models.product
         {
             return "product.valnut";
         }
+
+        public void setDefaultValues()
+        {
+            proteines = -1;
+            glucides = -1;
+            sucres = -1;
+            fibres_alimentaires = -1;
+            sodium = -1;
+            mineraux = -1;
+            eau = -1;
+            qte_an = -1;
+            purete = -1;
+            agree_gain = false;
+            lipides = -1;
+            satures = -1;
+            monoinsatures = -1;
+            polyinsatures = -1;
+            omega3 = -1;
+            omega6 = -1;
+            trans = -1;
+            a_verifier = false;
+            incomplet = false;
+        }
     }
 }
