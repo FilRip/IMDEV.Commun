@@ -54,5 +54,10 @@ namespace IMDEV.Database.Common
             return -1;
         }
 
+        public DataRow firstLine()
+        {
+            if ((Tables.Count > 0) && (Tables[0].Rows.Count > 0)) return Tables[0].Rows[0];
+            return null;
+        }
     }
 }
