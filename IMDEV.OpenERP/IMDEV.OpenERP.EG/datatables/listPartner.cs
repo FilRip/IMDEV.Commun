@@ -24,13 +24,18 @@ namespace IMDEV.OpenERP.EG.datatables
 
         public static res_partner aCustomer(string oldCode, Clients.clientOpenERP clientOERP)
         {
+            return aCustomer(oldCode, clientOERP, null);
+        }
+
+        public static res_partner aCustomer(string oldCode, Clients.clientOpenERP clientOERP, List<string> listFields)
+        {
             try
             {
                 IMDEV.OpenERP.models.query.aQuery query = new IMDEV.OpenERP.models.query.aQuery();
                 query.addEqualTo("customer", true);
                 query.addAND();
                 query.addEqualTo("old_code", oldCode);
-                return (res_partner)clientOERP.search(query, typeof(res_partner),true)[0];
+                return (res_partner)clientOERP.search(query, typeof(res_partner), true, listFields)[0];
             }
             catch { }
             return null;
