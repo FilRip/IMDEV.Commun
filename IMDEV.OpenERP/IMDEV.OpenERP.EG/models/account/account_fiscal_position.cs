@@ -1,10 +1,14 @@
 ﻿using IMDEV.OpenERP.models.@base;
 using IMDEV.OpenERP.models.fields.relations;
+using System.Collections.Generic;
 
 namespace IMDEV.OpenERP.EG.models.account
 {
     public class account_fiscal_position : anOpenERPObject
     {
+        private List<account_fiscal_position_account> _listAccounts;
+        private List<account_fiscal_position_tax> _listTaxes;
+
         public string name
         {
             get { return (string)listProperties.value("name", aField.FIELD_TYPE.CHAR); }
@@ -58,6 +62,54 @@ namespace IMDEV.OpenERP.EG.models.account
         public override string resource_name()
         {
             return "account.fiscal.position";
+        }
+
+        public List<account_fiscal_position_tax> listTaxes()
+        {
+            return _listTaxes;
+        }
+        public void chargeTaxes(Clients.clientOpenERP cli)
+        {
+            List<object> _listObj;
+            if ((tax_ids != null) && (tax_ids.getValue != null) && (tax_ids.getValue.Count > 0))
+            {
+                _listObj = cli.read(new IMDEV.OpenERP.models.query.aQuery(tax_ids.getValue), typeof(account_fiscal_position_tax));
+                _listTaxes = new List<account_fiscal_position_tax>();
+                foreach (account_fiscal_position_tax f in _listObj)
+                    _listTaxes.Add(f);
+            }
+        }
+        public int taxAffectee(int id)
+        {
+            if (_listTaxes != null)
+                foreach (account_fiscal_position_tax t in _listTaxes)
+                    if (t.tax_src_id.id == id) return t.tax_dest_id.id;
+
+            return id;
+        }
+
+        public List<account_fiscal_position_account> listAccounts()
+        {
+            return _listAccounts;
+        }
+        public void chargeAccounts(Clients.clientOpenERP cli)
+        {
+            List<object> _listObj;
+            if ((account_ids != null) && (account_ids.getValue != null) && (account_ids.getValue.Count > 0))
+            {
+                _listObj = cli.read(new IMDEV.OpenERP.models.query.aQuery(account_ids.getValue), typeof(account_fiscal_position_account));
+                _listAccounts = new List<account_fiscal_position_account>();
+                foreach (account_fiscal_position_account f in _listObj)
+                    _listAccounts.Add(f);
+            }
+        }
+        public int compteAffectee(int id)
+        {
+            if (_listAccounts != null)
+                foreach (account_fiscal_position_account t in _listAccounts)
+                    if (t.account_src_id.id == id) return t.account_dest_id.id;
+
+            return id;
         }
     }
 }
