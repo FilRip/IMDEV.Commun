@@ -201,6 +201,11 @@ namespace IMDEV.Database
             _myConnection.fermer();
         }
 
+        public string currentConnectionString()
+        {
+            return _myConnection.lastConnectionString();
+        }
+
         public int nbAffectee
         {
             get { return _myConnection.lastNbAffected; }

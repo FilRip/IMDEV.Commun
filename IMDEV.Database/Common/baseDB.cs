@@ -32,6 +32,11 @@ namespace IMDEV.Database.Common
         abstract public List<string> listSchemas();
         abstract public List<string> returnCurrentPS();
 
+        public string lastConnectionString()
+        {
+            return _lastServeur;
+        }
+
         // Asynchrone
         abstract public void connectAsync(connectionProperties parameters, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
         abstract public void connectAsync(string connectionString, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
