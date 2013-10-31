@@ -30,6 +30,7 @@ namespace IMDEV.Database.Common
 
         abstract public List<models.aFieldType> listFieldType();
         abstract public List<string> listSchemas();
+        abstract public List<string> returnCurrentPS();
 
         // Asynchrone
         abstract public void connectAsync(connectionProperties parameters, System.ComponentModel.RunWorkerCompletedEventHandler callBack);
@@ -40,9 +41,6 @@ namespace IMDEV.Database.Common
         abstract public void executeScalaireAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
         abstract public void executeProcedureStockeeAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
         abstract public void retourneDonneesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack);
-
-        // TODO : generateConnectionString
-        //abstract public string generateConnectionString(params string[] values);
 
         public string currentDatabase
         {

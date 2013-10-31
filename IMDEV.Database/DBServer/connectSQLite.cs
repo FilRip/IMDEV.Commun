@@ -459,5 +459,13 @@ namespace IMDEV.Database.DBServer
                     }
                     catch { }
         }
+        public override List<string> returnCurrentPS()
+        {
+            List<string> retour = new List<string>();
+            retour.Add(_proc.CommandText);
+            foreach (SQLiteParameter val in _proc.Parameters)
+                retour.Add(val.ParameterName + " " + val.Value);
+            return retour;
+        }
     }
 }

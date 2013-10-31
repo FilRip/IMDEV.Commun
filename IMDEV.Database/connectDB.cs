@@ -60,6 +60,9 @@ namespace IMDEV.Database
             return (_myConnection==null);
         }
 
+        public delegate void delegateRetourDonnees(string sql, object result);
+        public event delegateRetourDonnees callBackRetourneDonnees;
+        
         public bool connect(string connectionString)
         {
             if (checkCurrentServerType()) return false;
@@ -81,23 +84,29 @@ namespace IMDEV.Database
         public unRetourRequete retourneDonnees(string requete)
         {
             if (checkCurrentServerType()) return null;
-            return _myConnection.retourneDonnees(requete);
+            IMDEV.Database.Common.unRetourRequete result;
+            result=_myConnection.retourneDonnees(requete);
+            callBackRetourneDonnees(requete, result);
+            return result;
         }
         public void retourneDonneesAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.retourneDonneesAsync(requete, callBack);
+            callBackRetourneDonnees(requete, null);
         }
 
         public bool executeRequete(string requete)
         {
             if (checkCurrentServerType()) return false;
+            callBackRetourneDonnees(requete, null);
             return _myConnection.executeRequete(requete);
         }
         public void executeRequeteAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeRequeteAsync(requete, callBack);
+            callBackRetourneDonnees(requete, null);
         }
 
         public bool prepareProcedureStockee(string nom)
@@ -115,23 +124,27 @@ namespace IMDEV.Database
         public bool executeProcedureStockee()
         {
             if (checkCurrentServerType()) return false;
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
             return _myConnection.executeProcedureStockee();
         }
         public void executeProcedureStockeeAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeProcedureStockeeAsync(callBack);
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
         }
 
         public unRetourRequete retourneDonnees()
         {
             if (checkCurrentServerType()) return null;
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
             return _myConnection.retourneDonnees();
         }
         public void retourneDonneesAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.retourneDonneesAsync(callBack);
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
         }
 
         public System.Data.ConnectionState state()
@@ -143,23 +156,27 @@ namespace IMDEV.Database
         public object executeScalaire(string requete)
         {
             if (checkCurrentServerType()) return null;
+            callBackRetourneDonnees(requete, null);
             return _myConnection.executeScalaire(requete);
         }
         public void executeScalaireAsync(string requete, System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeScalaireAsync(requete, callBack);
+            callBackRetourneDonnees(requete, null);
         }
 
         public object executeScalaire()
         {
             if (checkCurrentServerType()) return null;
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
             return _myConnection.executeScalaire();
         }
         public void executeScalaireAsync(System.ComponentModel.RunWorkerCompletedEventHandler callBack)
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeScalaireAsync(callBack);
+            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
         }
 
         public List<string> listTables()

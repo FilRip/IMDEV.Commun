@@ -496,6 +496,15 @@ namespace IMDEV.Database.DBServer
             return retour;
         }
 
+        public override List<string> returnCurrentPS()
+        {
+            List<string> retour = new List<string>();
+            retour.Add(_proc.CommandText);
+            foreach (MySqlParameter val in _proc.Parameters)
+                retour.Add(val.ParameterName + " " + val.Value);
+            return retour;
+        }
+
         public override ConnectionState state()
         {
             if (_conn != null) return _conn.State; else return ConnectionState.Closed;
