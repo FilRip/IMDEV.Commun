@@ -1395,6 +1395,13 @@ namespace IMDEV.OpenERP.EG.models.product
             get { return (int)listProperties.value("id", aField.FIELD_TYPE.INTEGER); }
             set { listProperties.setValue("id", value); }
         }
+
+        public bool presence_tier_software
+        {
+            get { return (bool)listProperties.value("presence_tier_software", aField.FIELD_TYPE.BOOLEAN); }
+            set { listProperties.setValue("presence_tier_software", value); }
+        }
+
         public override string resource_name()
         {
             return "product.product";
