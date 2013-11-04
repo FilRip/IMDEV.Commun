@@ -464,7 +464,7 @@ namespace IMDEV.Database.DBServer
             List<string> retour = new List<string>();
             retour.Add(_proc.CommandText);
             foreach (SQLiteParameter val in _proc.Parameters)
-                retour.Add(val.ParameterName + " " + val.Value);
+                retour.Add(val.ParameterName + " = " + val.Value.ToString());
             return retour;
         }
     }
