@@ -103,13 +103,13 @@ namespace IMDEV.OpenERP.EG.models.account
                     _listAccounts.Add(f);
             }
         }
-        public int compteAffectee(int id)
+        public int compteAffectee(int accountId)
         {
             if (_listAccounts != null)
                 foreach (account_fiscal_position_account t in _listAccounts)
-                    if (t.account_src_id.id == id) return t.account_dest_id.id;
+                    if (t.account_src_id.id == accountId) return t.account_dest_id.id;
 
-            return id;
+            return accountId;
         }
     }
 }
