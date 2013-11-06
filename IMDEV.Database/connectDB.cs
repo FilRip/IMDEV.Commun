@@ -73,7 +73,14 @@ namespace IMDEV.Database
         /// Generate when calling an action in database
         /// </summary>
         public event delegateRetourDonnees callBackRetourneDonnees;
-        
+
+        protected virtual void OnConnectFailed(string sql, object result)
+        {
+            delegateRetourDonnees tmp = callBackRetourneDonnees;
+            if (tmp != null)
+                tmp(sql, result);
+        }
+
         /// <summary>
         /// Connect to the server
         /// </summary>
@@ -117,7 +124,7 @@ namespace IMDEV.Database
             if (checkCurrentServerType()) return null;
             IMDEV.Database.Common.unRetourRequete result;
             result=_myConnection.retourneDonnees(requete);
-            callBackRetourneDonnees(requete, result);
+            OnConnectFailed(requete, result);
             return result;
         }
         /// <summary>
@@ -130,7 +137,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.retourneDonneesAsync(requete, callBack);
-            callBackRetourneDonnees(requete, null);
+            OnConnectFailed(requete, null);
         }
 
         /// <summary>
@@ -141,7 +148,7 @@ namespace IMDEV.Database
         public bool executeRequete(string requete)
         {
             if (checkCurrentServerType()) return false;
-            callBackRetourneDonnees(requete, null);
+            OnConnectFailed(requete, null);
             return _myConnection.executeRequete(requete);
         }
         /// <summary>
@@ -154,7 +161,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeRequeteAsync(requete, callBack);
-            callBackRetourneDonnees(requete, null);
+            OnConnectFailed(requete, null);
         }
 
         /// <summary>
@@ -187,7 +194,7 @@ namespace IMDEV.Database
         public bool executeProcedureStockee()
         {
             if (checkCurrentServerType()) return false;
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
             return _myConnection.executeProcedureStockee();
         }
         /// <summary>
@@ -199,7 +206,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeProcedureStockeeAsync(callBack);
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
         }
 
         /// <summary>
@@ -209,7 +216,7 @@ namespace IMDEV.Database
         public unRetourRequete retourneDonnees()
         {
             if (checkCurrentServerType()) return null;
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
             return _myConnection.retourneDonnees();
         }
         /// <summary>
@@ -221,7 +228,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.retourneDonneesAsync(callBack);
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
         }
 
         public System.Data.ConnectionState state()
@@ -238,7 +245,7 @@ namespace IMDEV.Database
         public object executeScalaire(string requete)
         {
             if (checkCurrentServerType()) return null;
-            callBackRetourneDonnees(requete, null);
+            OnConnectFailed(requete, null);
             return _myConnection.executeScalaire(requete);
         }
         /// <summary>
@@ -251,7 +258,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeScalaireAsync(requete, callBack);
-            callBackRetourneDonnees(requete, null);
+            OnConnectFailed(requete, null);
         }
 
         /// <summary>
@@ -261,7 +268,7 @@ namespace IMDEV.Database
         public object executeScalaire()
         {
             if (checkCurrentServerType()) return null;
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
             return _myConnection.executeScalaire();
         }
         /// <summary>
@@ -274,7 +281,7 @@ namespace IMDEV.Database
         {
             if (checkCurrentServerType()) return;
             _myConnection.executeScalaireAsync(callBack);
-            callBackRetourneDonnees("PS", _myConnection.returnCurrentPS());
+            OnConnectFailed("PS", _myConnection.returnCurrentPS());
         }
 
         /// <summary>
