@@ -1,13 +1,11 @@
 Public Class Logger
 
-    Private _fichierLog As System.IO.StreamWriter
-    Private _initLog As Boolean
     Private _nomEnCours As String
     Private _niveauEnCours As String
     Private Shared _instance As New Logger
 
     Public Shared Function getInstance() As Logger
-        If (_instance Is Nothing) Then _instance = New Logger
+        If (_instance Is Nothing) Then _instance = New Logger()
         Return _instance
     End Function
 
@@ -28,43 +26,7 @@ Public Class Logger
     ''' <returns>Nom/emplacement du fichier de log en cours ou chaine vide si pas initialisé</returns>
     ''' <remarks></remarks>
     Public Function LogRetourneNomFichier() As String
-        If (_initLog) Then Return _nomEnCours Else Return ""
-    End Function
-
-    ''' <summary>
-    ''' Ferme le fichier de log (dévérouille le fichier en accès exclusif)
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub LogFermerLog()
-        If (_initLog) Then
-            _fichierLog.Close()
-            _initLog = False
-        End If
-    End Sub
-
-    ''' <summary>
-    ''' Initialise le système de log, ouvre le fichier en création (ou en ajout si il existe déjà)
-    ''' </summary>
-    ''' <param name="nom">nom/emplacement du fichier de log</param>
-    ''' <returns>True = Fichier ouvert et pret, sinon False (fichier inexistant ou déjà vérouillé par un autre processus)</returns>
-    ''' <remarks></remarks>
-    Public Function LogCreerFichier(ByVal nom As String, Optional ByVal sql As Boolean = False) As Boolean
-        If ((nom = "") Or ((_initLog) And (nom <> _nomEnCours))) Then Return False
-        Try
-            If (_initLog And nom = _nomEnCours) Then Return True
-            Dim sortiefichier As System.IO.FileStream
-            If (IO.File.Exists(nom)) Then
-                sortiefichier = New System.IO.FileStream(nom, IO.FileMode.Append)
-            Else
-                sortiefichier = New System.IO.FileStream(nom, IO.FileMode.Create)
-            End If
-            _fichierLog = New System.IO.StreamWriter(sortiefichier)
-            _nomEnCours = nom
-            _initLog = True
-        Catch ex As Exception
-            Return False
-        End Try
-        Return True
+        Return _nomEnCours
     End Function
 
     ''' <summary>
@@ -74,16 +36,15 @@ Public Class Logger
     ''' <param name="niveau">Niveau de ce message</param>
     ''' <remarks></remarks>
     Public Sub LogEcrire(ByVal ligne As String, Optional ByVal niveau As LOG_LEVEL = LOG_LEVEL.INFO)
-        If (_initLog) Then
+        If (_nomEnCours <> "") Then
             If (aLogger(niveau)) Then
-                _fichierLog.WriteLine(Now().ToString & " | " & niveau.ToString & " : " & ligne)
-                _fichierLog.Flush()
+                System.IO.File.AppendAllText(_nomEnCours, Now().ToString & " | " & niveau.ToString & " : " & ligne)
             End If
         End If
     End Sub
 
     Private Function aLogger(ByVal niveau As LOG_LEVEL) As Boolean
-        If ((_niveauEnCours & ",").LastIndexOf("," & niveau & ",") > -1) Then Return True
+        If ((_niveauEnCours & ",").LastIndexOf("," & niveau & ",") >= 0) Then Return True
         Return False
     End Function
 
@@ -106,6 +67,18 @@ Public Class Logger
     ''' <remarks></remarks>
     Public Sub ajouteUnNiveauALogger(ByVal niveau As LOG_LEVEL)
         _niveauEnCours &= "," & niveau.ToString
+    End Sub
+
+    Public Sub generateLogName(Optional ByVal withTime As Boolean = False)
+        Dim dir As String
+
+        dir = System.Environment.CurrentDirectory + "\logs"
+        If (Not (System.IO.Directory.Exists(dir))) Then System.IO.Directory.CreateDirectory(dir)
+        _nomEnCours = dir & "\" & My.Application.Info.AssemblyName & "_" & System.DateTime.Now.Day.ToString("00") & "-" + System.DateTime.Now.Month.ToString("00") & "-" + System.DateTime.Now.Year.ToString("0000")
+        If (withTime) Then
+            _nomEnCours &= "_" & System.DateTime.Now.Hour.ToString("00") & "-" + System.DateTime.Now.Minute.ToString("00")
+        End If
+        _nomEnCours &= ".log"
     End Sub
 
 End Class
