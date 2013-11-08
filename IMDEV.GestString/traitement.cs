@@ -17,23 +17,30 @@ namespace IMDEV.GestString
             List<string> ret = new List<string>();
             string currentString = "";
             string curApos = "";
-
+            bool add = true;
             while (text.LastIndexOf(separator.ToString() + separator.ToString())>=0)
                 text = text.Replace(separator.ToString() + separator.ToString(), separator.ToString());
             foreach (char t in text)
             {
+                add = true;
                 if (t == textSeparator)
                     if (curApos == "")
+                    {
                         curApos = textSeparator.ToString();
+                        add = false;
+                    }
                     else if (curApos == textSeparator.ToString())
+                    {
                         curApos = "";
+                        add = false;
+                    }
                 if ((t == separator) && (curApos == ""))
                 {
                     ret.Add(currentString);
                     currentString = "";
                 }
                 else
-                    currentString = currentString.Replace(textSeparator.ToString(),"") + t;
+                    if (add) currentString = currentString + t;
             }
 
             if (currentString != "") ret.Add(currentString);
@@ -42,8 +49,13 @@ namespace IMDEV.GestString
 
         public static int numberOfString(string text, string toSearch)
         {
-            int i=0;
-            int start=0;
+            return numbersOfString(text, toSearch).Count;
+        }
+
+        public static List<int> numbersOfString(string text, string toSearch)
+        {
+            List<int> i = new List<int>();
+            int start = 0;
             int lastFound;
 
             if ((text != null) && (text != ""))
@@ -53,12 +65,13 @@ namespace IMDEV.GestString
                     lastFound = text.IndexOf(toSearch, start);
                     if (lastFound >= 0)
                     {
+                        i.Add(lastFound);
                         start = lastFound + 1;
-                        i++;
                     }
                     else
                         break;
                 }
+
             return i;
         }
 
