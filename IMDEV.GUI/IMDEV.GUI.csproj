@@ -101,6 +101,10 @@
     <Compile Include="MsgBoxPerso\MsgBoxPerso.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PopUpTray\messageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUpTray\PopUpWnd.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileFolderDialog\SelectFileOrFolderDialog.cs">
       <SubType>Form</SubType>
@@ -124,6 +128,10 @@
     <EmbeddedResource Include="MsgBoxPerso\MsgBoxPerso.resx">
       <DependentUpon>MsgBoxPerso.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PopUpTray\messageForm.resx">
+      <DependentUpon>messageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpTray\PopUpWnd.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
