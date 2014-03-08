@@ -98,7 +98,21 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FileFolderDialog\ToolStripRenderers.cs" />
-    <Compile Include="MsgBoxPerso\MsgBoxPerso.cs">
+    <Compile Include="InputBox\Component\Designer\SeparatorDesigner.cs" />
+    <Compile Include="InputBox\Component\Separator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InputBox\Component\Separator.designer.cs">
+      <DependentUpon>Separator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox\Form\InputBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBox\Form\InputBoxForm.designer.cs">
+      <DependentUpon>InputBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox\InputBox.cs" />
+    <Compile Include="InputBox\MsgBoxPerso\MsgBoxPerso.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PopUpTray\messageForm.cs">
@@ -125,7 +139,13 @@
     <EmbeddedResource Include="FileFolderDialog\NewFolderDialog.resx">
       <DependentUpon>NewFolderDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MsgBoxPerso\MsgBoxPerso.resx">
+    <EmbeddedResource Include="InputBox\Component\Separator.resx">
+      <DependentUpon>Separator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBox\Form\InputBoxForm.resx">
+      <DependentUpon>InputBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBox\MsgBoxPerso\MsgBoxPerso.resx">
       <DependentUpon>MsgBoxPerso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PopUpTray\messageForm.resx">
