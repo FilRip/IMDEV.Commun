@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestionHTTP.cs" />
     <Compile Include="TcpDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
