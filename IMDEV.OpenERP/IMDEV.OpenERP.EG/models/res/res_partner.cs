@@ -802,7 +802,7 @@ namespace IMDEV.OpenERP.EG.models.res
                 req.addAND();
                 req.addEqualTo("partner_id", id);
                 retour = clientOpenERP.search(req, typeof(res_partner_address), true, listeChamps);
-                if ((retour != null) && (retour.Count == 1))
+                if ((retour != null) && (retour.Count >= 1))
                     return (res_partner_address)retour[0];
             }
             return null;
