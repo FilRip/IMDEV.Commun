@@ -51,7 +51,7 @@ namespace NPOI.SS.Formula.Function
 
         public static FunctionMetadataRegistry CreateRegistry()
         {
-            using (StreamReader br = new StreamReader (typeof (FunctionMetadataReader).Assembly.GetManifestResourceStream (METADATA_FILE_NAME)))
+            using (StringReader br = new StringReader(IMDEV.gestionOffice.Resource1.functionMetadata))
             {
 
                 FunctionDataBuilder fdb = new FunctionDataBuilder(400);
