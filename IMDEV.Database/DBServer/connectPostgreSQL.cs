@@ -243,7 +243,7 @@ namespace IMDEV.Database.DBServer
                 sa.CommandType = CommandType.Text;
                 sa.CommandText = requete;
                 src = sa.ExecuteReader();
-                if (((src != null) && (src.HasRows)))
+                if ((src != null) && (src.HasRows))
                     return copieDonnees(ref src);
             }
             catch (Exception ex)
