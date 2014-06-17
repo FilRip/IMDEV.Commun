@@ -581,7 +581,7 @@ namespace IMDEV.OpenERP.Clients
 
             if ((query == null)
                         && (objectToDelete == null))
-                throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, "query ne peut pas �tre vide si \'objet\' est vide �galement");
+                throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.MANQUE_PARAM, @"query ne peut pas être vide si l'objet' est vide également");
 
             try
             {
@@ -591,7 +591,7 @@ namespace IMDEV.OpenERP.Clients
                 {
                     nomRessource = objectToDelete.resource_name();
                     query = new ArrayList();
-                    query.Add(int.Parse((string)objectToDelete.listProperties.value("id")));
+                    query.Add((objectToDelete.listProperties.value("id")).ToString());
                 }
                 else if (objectType != null)
                 {

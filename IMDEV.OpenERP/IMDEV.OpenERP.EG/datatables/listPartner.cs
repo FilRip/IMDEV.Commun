@@ -22,19 +22,19 @@ namespace IMDEV.OpenERP.EG.datatables
             return null;
         }
 
-        public static res_partner aCustomer(string oldCode, Clients.clientOpenERP clientOERP)
+        public static res_partner aCustomer(string oldCode, string refCode, Clients.clientOpenERP clientOERP)
         {
-            return aCustomer(oldCode, clientOERP, null);
+            return aCustomer(oldCode,refCode, clientOERP, null);
         }
 
-        public static res_partner aCustomer(string oldCode, Clients.clientOpenERP clientOERP, List<string> listFields)
+        public static res_partner aCustomer(string oldCode, string refCode, Clients.clientOpenERP clientOERP, List<string> listFields)
         {
             try
             {
                 IMDEV.OpenERP.models.query.aQuery query = new IMDEV.OpenERP.models.query.aQuery();
                 query.addEqualTo("customer", true);
                 query.addAND();
-                query.addEqualTo("old_code", oldCode);
+                if (oldCode != "") query.addEqualTo("old_code", oldCode); else query.addEqualTo("ref", refCode);
                 return (res_partner)clientOERP.search(query, typeof(res_partner), true, listFields)[0];
             }
             catch { }
