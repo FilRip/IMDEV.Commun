@@ -140,6 +140,121 @@ namespace IMDEV.OpenERP.Clients
             e.Result = readData((models.query.aQuery)((Hashtable)(e.Argument))["query"], (System.Type)((Hashtable)(e.Argument))["objectType"], (string)((Hashtable)(e.Argument))["objectName"], (List<string>)((Hashtable)(e.Argument))["listeChamps"], (models.@base.listProperties)((Hashtable)(e.Argument))["context"]);
         }
 
+        public object executeMethod(models.query.aQuery query, string methodName, System.Type objectType, models.@base.listProperties context)
+        {
+            return executeMethod(query, methodName, objectType, "", context);
+        }
+        public object executeMethod(models.query.aQuery query, string methodName, System.Type objectType)
+        {
+            return executeMethod(query,methodName, objectType,"", null);
+        }
+        public object executeMethod(models.query.aQuery query, string methodName, string objectName, models.@base.listProperties context)
+        {
+            return executeMethod(query, methodName, null, objectName, context);
+        }
+        public object executeMethod(models.query.aQuery query, string methodName, string objectName)
+        {
+            return executeMethod(query,methodName, null,objectName, null);
+        }
+        public object executeMethod(models.query.aQuery query, string methodName, System.Type objectType, string objectName, models.@base.listProperties context)
+        {
+            if (checkIfBusy())
+            return null;
+
+            return executeMethodData(query, methodName, objectType, objectName, context);
+        }
+    
+        private object executeMethodData(models.query.aQuery query, string methodName, System.Type objectType, string objectName, models.@base.listProperties context)
+        {
+            Interfaces.IObject conn;
+            object retour;
+            string nomRessource = "";
+            models.@base.anOpenERPObject classeInstanciee = null;
+            if (!isConnected) {
+                throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.NOT_CONNECTED);
+            }
+            if ((objectType == null) 
+                        && (objectName == "")) {
+                throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.ERR_NOMTYPE_OBJET_OPENERP);
+            }
+            try {
+                if (objectType!=null)
+                {
+                    classeInstanciee = ((models.@base.anOpenERPObject)(Activator.CreateInstance(objectType)));
+                    nomRessource = classeInstanciee.resource_name();
+                }
+                else {
+                    nomRessource = objectName;
+                }
+                conn = XmlRpcProxyGen.Create<Interfaces.IObject>();
+                conn.Url = url(SERVICE_XMLRPC.@object);
+                if ((context == null))
+                    retour = conn.execute(_config.database, _config.userId, _config.password, nomRessource, methodName, query.listParameters()[0]);
+                else
+                    retour = conn.executeTwoParam(_config.database, _config.userId, _config.password, nomRessource, methodName, query.toXmlRpc, context.toArray());
+                return retour;
+            }
+            catch (Exception ex)
+            {
+                if ((_config.reportXmlRpcError 
+                            && (ex.GetType() == typeof(XmlRpcFaultException)))) {
+                    throw new Systeme.exceptionOpenERP(Systeme.exceptionOpenERP.ERRORS.LIB_XMLRPC, ex.Message);
+                }
+            }
+            finally
+            {
+                conn = null;
+            }
+            return null;
+        }
+    
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, System.Type objectType, bool prioritaire)
+        {
+            executeMethodAsync(query,methodName,callBack, objectType, "", null, prioritaire);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, System.Type objectType)
+        {
+            executeMethodAsync(query, methodName, callBack, objectType, "", null, false);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, System.Type objectType, models.@base.listProperties context, bool prioritaire)
+        {
+            executeMethodAsync(query, methodName, callBack, objectType, "", context, prioritaire);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, System.Type objectType, models.@base.listProperties context)
+        {
+            executeMethodAsync(query, methodName, callBack, objectType, "", context, false);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string objectName, bool prioritaire)
+        {
+            executeMethodAsync(query, methodName, callBack, null, objectName, null, prioritaire);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string objectName)
+        {
+            executeMethodAsync(query, methodName, callBack, null, objectName, null, false);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string objectName, models.@base.listProperties context, bool prioritaire)
+        {
+            executeMethodAsync(query, methodName, callBack, null, objectName, context, prioritaire);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, string objectName, models.@base.listProperties context)
+        {
+            executeMethodAsync(query, methodName, callBack, null, objectName, context, false);
+        }
+        public void executeMethodAsync(models.query.aQuery query, string methodName, System.ComponentModel.RunWorkerCompletedEventHandler callBack, System.Type objectType, string objectName, models.@base.listProperties context, bool prioritaire)
+        {
+            Hashtable param = new Hashtable();
+            param.Add("query", query);
+            param.Add("methodName", methodName);
+            param.Add("objectType", objectType);
+            param.Add("objectName", objectName);
+            param.Add("context", context);
+            _work.addTask(new System.ComponentModel.DoWorkEventHandler(this.executeMethodAsyncCall), callBack, param, prioritaire);
+        }
+        
+        private void executeMethodAsyncCall(object sender, System.ComponentModel.DoWorkEventArgs e) {
+            e.Result = executeMethodData((models.query.aQuery)((Hashtable)(e.Argument))["query"], (string)((Hashtable)(e.Argument))["methodName"], (System.Type)((Hashtable)(e.Argument))["objectType"], (string)((Hashtable)(e.Argument))["objectName"], (models.@base.listProperties)((Hashtable)(e.Argument))["context"]);
+        }
+
         /// <summary>
         /// Recherche des objets dans la base OpenERP répondant à des critères spécifiés dans l'objet 'requete'
         /// </summary>
