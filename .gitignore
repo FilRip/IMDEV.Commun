@@ -72,3 +72,14 @@
 /IMDEV.WinUsers/bin
 /IMDEV.WinUsers/obj
 /IMDEV.ClientFTP/*.user
+/IMDEV.BaseDeRegistre/*.user
+/IMDEV.ComposantsGraphique/IMDEV.ComposantsGraphique.vbproj.user
+/IMDEV.Conversion/*.user
+/IMDEV.Date/*.user
+/IMDEV.FichiersINI/*.user
+/IMDEV.GenLog/*.user
+/IMDEV.GestProcess/*.user
+/IMDEV.GestString/*.user
+/IMDEV.GestionFichiers/*.user
+/IMDEV.MailSMS/*.user
+/IMDEV.Maths/*.user
