@@ -303,6 +303,7 @@ namespace IMDEV.Database.DBServer
         {
             try
             {
+                if (valeur == null) valeur = DBNull.Value;
                 _proc.Parameters.AddWithValue(nom, valeur);
                 return true;
             }
@@ -458,7 +459,7 @@ namespace IMDEV.Database.DBServer
             List<string> retour = new List<string>();
             retour.Add(_proc.CommandText);
             foreach (SqlParameter val in _proc.Parameters)
-                retour.Add(val.ParameterName + " = " + val.Value.ToString());
+                retour.Add(val.ParameterName + " = " + (val.Value != null ? val.Value.ToString() : "DBNULL"));
             return retour;
         }
     }
