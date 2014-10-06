@@ -36,7 +36,7 @@ namespace IMDEV.gestionOffice
                 ((Microsoft.Office.Interop.Excel.Workbook)(_ExcelProcess.Workbooks[0])).Close(null, null, null);
 	        }
             catch {}
-            _ExcelDoc = _ExcelProcess.Workbooks.Open(nom, null, false, null, null, null, false, null, null, true, true, null, false, false, null);
+            _ExcelDoc = _ExcelProcess.Workbooks.Open(nom, null, false, null, null, null, false, null, null, true, false, null, false, false, null);
             _ExcelFeuille = (Microsoft.Office.Interop.Excel.Worksheet)_ExcelDoc.ActiveSheet;
         }
 
