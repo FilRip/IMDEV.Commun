@@ -403,6 +403,24 @@ namespace IMDEV.OpenERP.EG.models.mrp
             get { return _f_location_path_ids; }
         }
 
+        public enum ENUM_SPECIAL_BOM_TYPE
+        {
+            NULL
+            ,
+            @temp
+                ,
+            @normal
+                , @recycl
+        }
+        private string[] _frv_special_bom_type = new string[] { "NULL", "temp", "normal", "recycl" };
+        private string[] _fl_special_bom_type = new string[] { "NULL", "Temporary", "Normal", "Recycle" };
+        private ENUM_SPECIAL_BOM_TYPE _fv_special_bom_type;
+        public ENUM_SPECIAL_BOM_TYPE special_bom_type
+        {
+            get { return _fv_special_bom_type; }
+            set { _fv_special_bom_type = value; }
+        }
+
         public int id
         {
             get { return (int)listProperties.value("id", aField.FIELD_TYPE.INTEGER); }

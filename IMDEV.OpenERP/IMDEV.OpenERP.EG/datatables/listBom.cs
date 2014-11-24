@@ -8,6 +8,26 @@ namespace IMDEV.OpenERP.EG.datatables
 {
     public class listBom
     {
+        public static IMDEV.OpenERP.EG.models.mrp.mrp_bom bomOfProduct(int numProduct, Clients.clientOpenERP clientOERP)
+        {
+            try
+            {
+                models.product.product_product prodERP;
+                models.mrp.mrp_bom mrpBom;
+                prodERP=datatables.listProduct.aProduct(numProduct, clientOERP);
+                if ((prodERP != null) && (prodERP.bom_ids.getValue != null))
+                {
+                    foreach (int bomId in prodERP.bom_ids.getValue)
+                    {
+                        mrpBom = aBomById(bomId,clientOERP);
+                        if ((mrpBom!=null) && (mrpBom.active) && (mrpBom.special_bom_type== mrp_bom.ENUM_SPECIAL_BOM_TYPE.normal))
+                            return mrpBom;
+                    }
+                }
+            }
+            catch { }
+            return null;
+        }
         public static mrp_bom aBom(int numFormule, Clients.clientOpenERP clientOERP)
         {
             return aBom(numFormule, clientOERP, null);
