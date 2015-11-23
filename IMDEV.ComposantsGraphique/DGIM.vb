@@ -69,7 +69,7 @@
     ''' <remarks></remarks>
     Public Overloads Sub ajouteUneColonne(ByVal nom As String, ByVal deType As Type, Optional ByVal lectureSeule As Boolean = False)
         _datasource.Band.Columns.Add(nom, deType)
-        _datasource.Band.Columns(_datasource.Band.Columns.Count - 1).ReadOnly = lectureSeule
+        _datasource.Band.Columns(_datasource.Band.Columns.Count - 1).ReadOnly = Infragistics.Win.DefaultableBoolean.True
     End Sub
 
     ''' <summary>
